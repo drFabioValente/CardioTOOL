@@ -1,145 +1,416 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>CardioTools Pro - Definitivo</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b1020">
+<title>CardioTools Pro — GRACE, RoPE, PASCAL e score cardiologici</title>
 <style>
-:root{
-  --bg:#0b1020; --panel:#151d38; --panel2:#1a2345; --border:#2a3568;
-  --txt:#edf2ff; --muted:#aeb8d8;
-}
-*{box-sizing:border-box}
-html,body{height:100%}
-body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--txt);background:
-radial-gradient(850px 500px at 15% 10%, #203063 0%, transparent 60%),
-radial-gradient(900px 500px at 85% 85%, #431424 0%, transparent 55%),var(--bg);}
-.app{display:grid;grid-template-columns:320px 1fr;height:100dvh}
-.sidebar{border-right:1px solid var(--border);background:rgba(10,14,28,.65);padding:16px 14px 20px;display:flex;flex-direction:column;min-height:0}
-.brand{padding:8px 8px 14px}.brand h1{margin:0;font-size:1.35rem}.brand p{margin:.25rem 0 0;color:var(--muted);font-size:.9rem}
-.searchbox{margin:4px 4px 10px}.searchbox input{width:100%;padding:11px 12px;border-radius:12px;border:1px solid var(--border);background:var(--panel);color:var(--txt);outline:none}
-.side-scroll{overflow-y:auto;min-height:0;padding-right:4px;-webkit-overflow-scrolling:touch;touch-action:pan-y}
-.section-title{margin:16px 8px 8px;color:#cfd8ff;opacity:.8;font-size:.73rem;text-transform:uppercase;letter-spacing:.11em}
-.btn{width:100%;border:1px solid var(--border);background:linear-gradient(180deg,#1a2345 0%,#141c35 100%);color:var(--txt);border-radius:12px;padding:11px 12px;text-align:left;margin:0 4px 8px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px}
-.btn:hover{transform:translateY(-1px);border-color:#4a61b7}.btn.active{outline:2px solid rgba(87,166,255,.45)}
-.btn .left{display:flex;flex-direction:column;gap:2px}.btn .name{font-weight:700}.btn .meta{font-size:.78rem;color:var(--muted)}
-.fav{border:none;background:transparent;color:#ffd86b;font-size:1rem;cursor:pointer}
-.main{min-width:0;overflow:auto;padding:24px}
-.card{background:rgba(18,25,51,.88);border:1px solid var(--border);border-radius:18px;padding:22px;box-shadow:0 10px 30px rgba(0,0,0,.18)}
-.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}.hero h2{margin:.1rem 0 .35rem}.hero p{color:var(--muted);line-height:1.45}
-.badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.badge{border:1px solid var(--border);background:var(--panel2);border-radius:999px;padding:6px 10px;color:#dce6ff;font-size:.82rem}
-.grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;margin-top:18px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.field{border:1px solid var(--border);border-radius:14px;padding:12px;background:rgba(26,35,69,.55)}.field.full{grid-column:1/-1}.field label{display:block;font-size:.9rem;margin-bottom:8px;font-weight:600}.field small{display:block;color:var(--muted);margin-top:6px}
-select,input[type="number"],input[type="text"]{width:100%;padding:10px 11px;border-radius:10px;border:1px solid #3a487f;background:#0e152b;color:var(--txt)}
-.checkbox{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--border);border-radius:12px;padding:10px 12px;background:rgba(26,35,69,.45)}.checkbox input{margin-top:3px}
-.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.primary,.secondary{border-radius:12px;padding:11px 14px;cursor:pointer;font-weight:700}.primary{border:1px solid #4f7fff;background:linear-gradient(180deg,#4f86ff,#3467dd);color:white}.secondary{border:1px solid var(--border);background:#111936;color:var(--txt)}
-.result h3{margin:0 0 8px}.result .big{font-size:2rem;font-weight:800;margin:6px 0}.result .interp{color:#dfe8ff;line-height:1.45}.result .note{color:var(--muted);font-size:.92rem;margin-top:10px}
-.table{width:100%;border-collapse:collapse;margin-top:8px}.table th,.table td{border-bottom:1px solid #2a3568;padding:8px 6px;text-align:left;font-size:.92rem}
-.empty{text-align:center;padding:42px 18px;color:var(--muted)}.help{color:var(--muted);font-size:.92rem;line-height:1.45}
-.warn{border:1px solid #6e5c20;background:rgba(255,176,32,.08);color:#ffe9b0;border-radius:12px;padding:12px 14px;margin-top:12px;font-size:.92rem}
-code.inline{background:#0e152b;padding:2px 6px;border-radius:6px}
-@media (max-width: 980px){.app{grid-template-columns:1fr}.sidebar{height:38dvh;border-right:none;border-bottom:1px solid var(--border)}.hero,.grid,.form-grid{grid-template-columns:1fr}.main{padding:14px}}
+:root{--bg:#0b1020;--panel:#151d38;--panel2:#1a2345;--border:#2a3568;--txt:#edf2ff;--muted:#aeb8d8}
+*{box-sizing:border-box}html,body{min-height:100%}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--txt);background:radial-gradient(850px 500px at 15% 10%,#203063 0%,transparent 60%),radial-gradient(900px 500px at 85% 85%,#431424 0%,transparent 55%),var(--bg);background-attachment:fixed}
+button,input,select{font:inherit}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #85b6ff;outline-offset:2px}
+.app{display:grid;grid-template-columns:320px minmax(0,1fr);height:100dvh}.sidebar{border-right:1px solid var(--border);background:rgba(10,14,28,.8);padding:16px 14px 20px;display:flex;flex-direction:column;min-height:0}.brand{padding:8px 8px 14px}.brand h1{margin:0;font-size:1.35rem}.brand p{margin:.25rem 0 0;color:var(--muted);font-size:.88rem}.searchbox{margin:4px 4px 10px}.searchbox input{width:100%;padding:11px 12px;border-radius:12px;border:1px solid var(--border);background:var(--panel);color:var(--txt);outline:none}.side-scroll{overflow-y:auto;min-height:0;padding-right:4px;-webkit-overflow-scrolling:touch;touch-action:pan-y}.section-title{margin:16px 8px 8px;color:#cfd8ff;opacity:.8;font-size:.73rem;text-transform:uppercase;letter-spacing:.11em}
+.btn{width:calc(100% - 8px);border:1px solid var(--border);background:linear-gradient(180deg,#1a2345 0%,#141c35 100%);color:var(--txt);border-radius:12px;padding:11px 12px;text-align:left;margin:0 4px 8px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px}.btn:hover{border-color:#4a61b7}.btn.active{outline:2px solid rgba(87,166,255,.48)}.btn .left{display:flex;flex-direction:column;gap:2px;min-width:0}.btn .name{font-weight:700}.btn .meta{font-size:.78rem;color:var(--muted)}.fav{flex:none;border:none;background:transparent;color:#ffd86b;font-size:1.15rem;cursor:pointer;padding:5px}
+.main{min-width:0;overflow:auto;padding:24px}.card{background:rgba(18,25,51,.9);border:1px solid var(--border);border-radius:18px;padding:22px;box-shadow:0 10px 30px rgba(0,0,0,.18)}.hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:18px}.hero h2{margin:.1rem 0 .35rem}.hero p{color:var(--muted);line-height:1.5}.badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.badge{border:1px solid var(--border);background:var(--panel2);border-radius:999px;padding:6px 10px;color:#dce6ff;font-size:.82rem}.grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:18px;margin-top:18px}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.field{border:1px solid var(--border);border-radius:14px;padding:12px;background:rgba(26,35,69,.55);min-width:0}.field.full{grid-column:1/-1}.field label{display:block;font-size:.9rem;margin-bottom:8px;font-weight:600}.field small{display:block;color:var(--muted);margin-top:6px}.field input,.field select{width:100%;padding:10px 11px;border-radius:10px;border:1px solid #3a487f;background:#0e152b;color:var(--txt);min-width:0}.checkbox{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--border);border-radius:12px;padding:10px 12px;background:rgba(26,35,69,.45);line-height:1.4;cursor:pointer}.checkbox input{margin-top:3px;flex:none;accent-color:#6095ff}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.primary,.secondary{border-radius:12px;padding:11px 14px;cursor:pointer;font-weight:700}.primary{border:1px solid #4f7fff;background:linear-gradient(180deg,#4f86ff,#3467dd);color:white}.secondary{border:1px solid var(--border);background:#111936;color:var(--txt)}.result h3{margin:0 0 8px}.result .big{font-size:2rem;font-weight:800;margin:6px 0;overflow-wrap:anywhere}.result .interp{color:#dfe8ff;line-height:1.55}.result .note{color:var(--muted);font-size:.92rem;margin-top:10px;line-height:1.5}.table{width:100%;border-collapse:collapse;margin-top:8px}.table th,.table td{border-bottom:1px solid #2a3568;padding:8px 6px;text-align:left;font-size:.88rem;vertical-align:top}.empty{text-align:center;padding:42px 18px;color:var(--muted)}.help{color:var(--muted);font-size:.92rem;line-height:1.5}.help a{color:#a5c7ff}.warn{border:1px solid #6e5c20;background:rgba(255,176,32,.08);color:#ffe9b0;border-radius:12px;padding:12px 14px;margin-top:12px;font-size:.92rem;line-height:1.45}code.inline{background:#0e152b;padding:2px 6px;border-radius:6px}h3{line-height:1.3}footer{margin:20px auto 8px;color:var(--muted);font-size:.78rem;text-align:center;max-width:700px}
+@media(max-width:980px){.app{grid-template-columns:1fr;grid-template-rows:minmax(160px,29dvh) minmax(0,1fr)}.sidebar{border-right:none;border-bottom:1px solid var(--border);padding:9px 10px}.brand{padding:3px 5px 5px}.brand h1{font-size:1.15rem}.brand p{font-size:.78rem}.searchbox{margin:3px 3px 5px}.searchbox input{padding:8px}.hero,.grid{grid-template-columns:1fr}.main{padding:14px}.card{padding:16px}.form-grid{grid-template-columns:1fr}.grid{margin-top:14px}}
+@media print{.app{display:block;height:auto}.sidebar{display:none}.main{overflow:visible;padding:0}.card{box-shadow:none}.actions{display:none}body{background:#fff;color:#000}.card,.field{background:#fff;color:#000}.result .interp,.result .note,.help{color:#222}}
 </style>
 </head>
 <body>
-<div class="app">
-<aside class="sidebar">
-  <div class="brand"><h1>CardioTools Pro</h1><p>Score cardiologici con dettagli di calcolo, preferiti e ricerca.</p></div>
-  <div class="searchbox"><input id="search" type="text" placeholder="Cerca score..." /></div>
-  <div class="side-scroll" id="menu"></div>
-</aside>
-<main class="main" id="main"></main>
-</div>
+<div class="app"><aside class="sidebar"><div class="brand"><h1>CardioTools Pro</h1><p>Calcolatori cardiologici · funziona offline</p></div><div class="searchbox"><input id="search" type="search" placeholder="Cerca score..." aria-label="Cerca score"></div><nav class="side-scroll" id="menu" aria-label="Calcolatori"></nav></aside><main class="main" id="main"><div class="card">Caricamento…</div></main></div>
 <script>
-const groups=[{key:"daily",label:"Uso quotidiano"},{key:"tep",label:"TEP"},{key:"fa",label:"FA score"},{key:"sca",label:"SCA / Antitrombotici"},{key:"hf",label:"Scompenso / Congestione"},{key:"cardio",label:"Cardiomiopatie / Aritmie"},{key:"utility",label:"Utility cliniche"}];
+'use strict';
+const groups=[{key:'daily',label:'Uso quotidiano'},{key:'tep',label:'TEP'},{key:'fa',label:'FA score'},{key:'sca',label:'SCA / Antitrombotici'},{key:'hf',label:'Scompenso / Congestione'},{key:'cardio',label:'Cardiomiopatie / Aritmie'},{key:'utility',label:'Utility cliniche'}];
 const tools=[
-{id:"chadsvasc",group:"fa",name:"CHA₂DS₂-VASc",meta:"Rischio tromboembolico FA",favorite:true},
-{id:"hasbled",group:"fa",name:"HAS-BLED",meta:"Rischio emorragico",favorite:true},
-{id:"orbit",group:"fa",name:"ORBIT",meta:"Bleeding score FA",favorite:true},
-{id:"heart",group:"daily",name:"HEART",meta:"Dolore toracico / ACS",favorite:true},
-{id:"grace",group:"sca",name:"GRACE",meta:"Modulo dettagliato",favorite:false},
-{id:"wells",group:"tep",name:"Wells PE",meta:"Probabilità clinica TEP",favorite:true},
-{id:"geneva",group:"tep",name:"Revised Geneva",meta:"Probabilità clinica TEP",favorite:true},
-{id:"perc",group:"tep",name:"PERC",meta:"Rule-out TEP",favorite:true},
-{id:"pesi",group:"tep",name:"PESI",meta:"Prognosi TEP",favorite:false},
-{id:"spesi",group:"tep",name:"sPESI",meta:"Prognosi TEP",favorite:true},
-{id:"bova",group:"tep",name:"Bova",meta:"Rischio deterioramento",favorite:false},
-{id:"timi",group:"sca",name:"TIMI UA/NSTEMI",meta:"Rischio SCA",favorite:false},
-{id:"dapt",group:"sca",name:"DAPT",meta:"Valutazione prolungamento DAPT",favorite:false},
-{id:"precise",group:"sca",name:"PRECISE-DAPT",meta:"Bleeding risk",favorite:false},
-{id:"egfr",group:"utility",name:"eGFR CKD-EPI 2021",meta:"Funzione renale",favorite:true},
-{id:"cg",group:"utility",name:"Cockcroft-Gault",meta:"Creatinine clearance",favorite:false},
-{id:"ldl",group:"utility",name:"LDL Friedewald",meta:"Colesterolo LDL",favorite:false},
-{id:"qtc",group:"utility",name:"QTc",meta:"Bazett / Fridericia",favorite:true},
-{id:"bmi",group:"utility",name:"BMI + BSA",meta:"Antropometria",favorite:false},
-{id:"vexus",group:"hf",name:"VExUS",meta:"Calcolatore attivo",favorite:true},
-{id:"hfpef",group:"hf",name:"H₂FPEF",meta:"Modulo dettagliato",favorite:false},
-{id:"hfapeff",group:"hf",name:"HFA-PEFF",meta:"Modulo dettagliato",favorite:false},
-{id:"hcm",group:"cardio",name:"HCM Risk-SCD",meta:"Ora funzionante",favorite:false}
+{id:'chadsvasc',group:'fa',name:'CHA₂DS₂-VASc',meta:'Rischio tromboembolico FA',favorite:true},
+{id:'hasbled',group:'fa',name:'HAS-BLED',meta:'Rischio emorragico',favorite:true},
+{id:'orbit',group:'fa',name:'ORBIT',meta:'Rischio emorragico FA',favorite:true},
+{id:'heart',group:'daily',name:'HEART',meta:'Dolore toracico',favorite:true},
+{id:'grace',group:'sca',name:'GRACE',meta:'Mortalità intraospedaliera SCA',favorite:false},
+{id:'wells',group:'tep',name:'Wells PE',meta:'Probabilità clinica TEP',favorite:true},
+{id:'geneva',group:'tep',name:'Revised Geneva',meta:'Probabilità clinica TEP',favorite:true},
+{id:'perc',group:'tep',name:'PERC',meta:'Rule-out TEP',favorite:true},
+{id:'pesi',group:'tep',name:'PESI',meta:'Prognosi TEP',favorite:false},
+{id:'spesi',group:'tep',name:'sPESI',meta:'Prognosi TEP',favorite:true},
+{id:'bova',group:'tep',name:'Bova',meta:'Rischio deterioramento',favorite:false},
+{id:'timi',group:'sca',name:'TIMI UA/NSTEMI',meta:'Rischio SCA',favorite:false},
+{id:'dapt',group:'sca',name:'DAPT score',meta:'Prolungamento DAPT',favorite:false},
+{id:'precise',group:'sca',name:'PRECISE-DAPT · orientativo',meta:'Valutazione qualitativa (non score)',favorite:false},
+{id:'egfr',group:'utility',name:'eGFR CKD-EPI 2021',meta:'Funzione renale',favorite:true},
+{id:'cg',group:'utility',name:'Cockcroft-Gault',meta:'Clearance creatinina',favorite:false},
+{id:'ldl',group:'utility',name:'LDL Friedewald',meta:'Colesterolo LDL',favorite:false},
+{id:'qtc',group:'utility',name:'QTc',meta:'Bazett / Fridericia',favorite:true},
+{id:'bmi',group:'utility',name:'BMI + BSA',meta:'Antropometria',favorite:false},
+{id:'vexus',group:'hf',name:'VExUS',meta:'Grading pratico',favorite:true},
+{id:'hfpef',group:'hf',name:'H₂FPEF',meta:'Probabilità HFpEF',favorite:false},
+{id:'hfapeff',group:'hf',name:'HFA-PEFF · informativo',meta:'Modulo non calcolabile',favorite:false},
+{id:'hcm',group:'cardio',name:'HCM Risk-SCD',meta:'Rischio SCD a 5 anni',favorite:false}
 ];
-const state={current:"hcm",favorites:JSON.parse(localStorage.getItem("cardio_favs")||"[]")};
-function isFav(id){return state.favorites.includes(id)||tools.find(t=>t.id===id)?.favorite}
-function toggleFav(id,ev){ev.stopPropagation();const i=state.favorites.indexOf(id);if(i>=0)state.favorites.splice(i,1);else state.favorites.push(id);localStorage.setItem("cardio_favs",JSON.stringify(state.favorites));renderMenu()}
-function renderMenu(){const q=document.getElementById('search').value.trim().toLowerCase();const menu=document.getElementById('menu');let html='';const favTools=tools.filter(t=>isFav(t.id)&&(t.name.toLowerCase().includes(q)||t.meta.toLowerCase().includes(q)));if(favTools.length){html+=`<div class="section-title">Preferiti</div>`;favTools.forEach(t=>html+=menuButton(t))}groups.forEach(g=>{const items=tools.filter(t=>t.group===g.key&&(t.name.toLowerCase().includes(q)||t.meta.toLowerCase().includes(q)));if(!items.length)return;html+=`<div class="section-title">${g.label}</div>`;items.forEach(t=>html+=menuButton(t))});if(!html)html=`<div class="empty">Nessun risultato</div>`;menu.innerHTML=html}
-function menuButton(t){const active=t.id===state.current?'active':'';return `<button class="btn ${active}" onclick="openTool('${t.id}')"><span class="left"><span class="name">${t.name}</span><span class="meta">${t.meta}</span></span><span class="fav" onclick="toggleFav('${t.id}', event)">${isFav(t.id)?'★':'☆'}</span></button>`}
-document.addEventListener('input',(e)=>{if(e.target.id==='search')renderMenu()});
-function openTool(id){state.current=id;renderMenu();document.getElementById('main').innerHTML=renderTool(id)}
-function num(id){return parseFloat(document.getElementById(id)?.value||0)}
-function checked(id){return document.getElementById(id)?.checked?1:0}
+let favSaved={};try{favSaved=JSON.parse(localStorage.getItem('cardio_favs_v2')||'{}')||{}}catch(e){}
+const state={current:'grace',favorites:favSaved};
+function isFav(id){return Object.prototype.hasOwnProperty.call(state.favorites,id)?!!state.favorites[id]:!!tools.find(t=>t.id===id)?.favorite}
+function toggleFav(id,event){event.stopPropagation();state.favorites[id]=!isFav(id);try{localStorage.setItem('cardio_favs_v2',JSON.stringify(state.favorites))}catch(e){}renderMenu()}
+function menuButton(t){const active=t.id===state.current?' active':'';return `<div class="btn${active}" role="group"><button class="btn-main" type="button" onclick="openTool('${t.id}')" style="flex:1;min-width:0;text-align:left;border:0;background:transparent;color:inherit;cursor:pointer;padding:0"><span class="left"><span class="name">${t.name}</span><span class="meta">${t.meta}</span></span></button><button type="button" class="fav" onclick="toggleFav('${t.id}',event)" aria-label="${isFav(t.id)?'Rimuovi dai':'Aggiungi ai'} preferiti">${isFav(t.id)?'★':'☆'}</button></div>`}
+function renderMenu(){const q=document.getElementById('search').value.trim().toLocaleLowerCase('it');let html='';const matches=t=>[t.name,t.meta].some(s=>s.toLocaleLowerCase('it').includes(q));const f=tools.filter(t=>isFav(t.id)&&matches(t));if(f.length){html+='<div class="section-title">Preferiti</div>';f.forEach(t=>html+=menuButton(t))}groups.forEach(g=>{const items=tools.filter(t=>t.group===g.key&&matches(t));if(items.length){html+=`<div class="section-title">${g.label}</div>`;items.forEach(t=>html+=menuButton(t))}});document.getElementById('menu').innerHTML=html||'<div class="empty">Nessun risultato</div>'}
+document.getElementById('search').addEventListener('input',renderMenu);
+function openTool(id){state.current=id;renderMenu();document.getElementById('main').innerHTML=renderTool(id);document.getElementById('main').scrollTop=0}
 function val(id){return document.getElementById(id)?.value||''}
-function selNum(id){return parseFloat(val(id)||0)}
-function setResult(html){document.getElementById('result').innerHTML=html}
-function resetForm(formId){document.getElementById(formId).reset();setResult(`<h3>Risultato</h3><div class="note">Compila i campi e premi “Calcola”.</div>`)}
-function interpPesi(score){if(score<=65)return'Classe I – rischio molto basso';if(score<=85)return'Classe II – rischio basso';if(score<=105)return'Classe III – rischio intermedio';if(score<=125)return'Classe IV – rischio alto';return'Classe V – rischio molto alto'}
-function renderTool(id){const defs={heart:heartTool(),chadsvasc:chadsTool(),hasbled:hasbledTool(),orbit:orbitTool(),wells:wellsTool(),geneva:genevaTool(),perc:percTool(),pesi:pesiTool(),spesi:spesiTool(),bova:bovaTool(),timi:timiTool(),dapt:daptTool(),precise:preciseTool(),egfr:egfrTool(),cg:cgTool(),ldl:ldlTool(),qtc:qtcTool(),bmi:bmiTool(),grace:infoTool("GRACE score","Ho lasciato un modulo dettagliato con variabili e formula non semplificata. Se vuoi, nel prossimo step posso aggiungere la versione completa con tutte le variabili numeriche e le categorie di età/pressione/creatinina.",["Età","FC","PAS","Creatinina","Killip","ST deviation","Troponina","Arresto cardiaco all'arrivo"]),vexus:vexusTool(),hfpef:hfpefTool(),hfapeff:infoTool("HFA-PEFF","Algoritmo strutturato in domini funzionale, morfologico e biomarcatori. Utile ma più adatto a una schermata dedicata con eco e NT-proBNP.",["Dominio funzionale","Dominio morfologico","Biomarcatori","Stress test / cateterismo se indeterminato"]),hcm:hcmTool()};return defs[id]||`<div class="card"><div class="empty">Modulo non disponibile.</div></div>`}
-function shell(title,subtitle,badges,formHtml){return `<div class="hero"><section class="card"><h2>${title}</h2><p>${subtitle}</p><div class="badges">${badges.map(b=>`<span class="badge">${b}</span>`).join('')}</div></section><section class="card result" id="result"><h3>Risultato</h3><div class="note">Compila i campi e premi “Calcola”.</div></section></div><div class="grid"><section class="card">${formHtml}</section><section class="card help"><h3 style="margin-top:0">Dettagli di calcolo</h3><div id="detailsBox"></div></section></div>`}
-function details(html){document.getElementById('detailsBox').innerHTML=html}
-function cb(id,label){return `<label class="checkbox"><input id="${id}" type="checkbox" /><span>${label}</span></label>`}
-function chadsTool(){setTimeout(()=>details(`<table class="table"><tr><th>Variabile</th><th>Punti</th></tr><tr><td>Scompenso / FE ridotta</td><td>1</td></tr><tr><td>Ipertensione</td><td>1</td></tr><tr><td>Età ≥75</td><td>2</td></tr><tr><td>Diabete</td><td>1</td></tr><tr><td>Stroke/TIA/TE pregresso</td><td>2</td></tr><tr><td>Vasculopatia</td><td>1</td></tr><tr><td>Età 65–74</td><td>1</td></tr><tr><td>Sesso femminile</td><td>1</td></tr></table>`),0);return shell("CHA₂DS₂-VASc","Score di rischio tromboembolico nella fibrillazione atriale non valvolare.",["FA","Stroke risk","Dettagli completi"],`<form id="f_chads"><div class="form-grid">${cb('c_hf','Scompenso cardiaco / FE ridotta')}${cb('c_htn','Ipertensione')}${cb('c_dm','Diabete mellito')}${cb('c_stroke','Pregresso stroke/TIA/TE')}${cb('c_vasc','Vasculopatia')}<div class="field"><label>Età</label><select id="c_age"><option value="0">&lt;65</option><option value="1">65–74</option><option value="2">≥75</option></select></div><div class="field"><label>Sesso</label><select id="c_sex"><option value="0">Maschio</option><option value="1">Femmina</option></select></div></div><div class="actions"><button type="button" class="primary" onclick="calcChads()">Calcola</button><button type="button" class="secondary" onclick="resetForm('f_chads')">Reset</button></div></form>`)}
-function calcChads(){const score=checked('c_hf')+checked('c_htn')+checked('c_dm')+2*checked('c_stroke')+checked('c_vasc')+selNum('c_age')+selNum('c_sex');let risk='Basso';if(score>=2)risk='Elevato';else if(score===1)risk='Intermedio';setResult(`<h3>Risultato</h3><div class="big">${score}</div><div class="interp">Rischio tromboembolico: <b>${risk}</b>.</div><div class="note">Interpretazione clinica da contestualizzare con linee guida, sesso e profilo del paziente.</div>`)}
-function hasbledTool(){setTimeout(()=>details(`<table class="table"><tr><th>Variabile</th><th>Punti</th></tr><tr><td>Ipertensione</td><td>1</td></tr><tr><td>Funzione renale alterata</td><td>1</td></tr><tr><td>Funzione epatica alterata</td><td>1</td></tr><tr><td>Stroke pregresso</td><td>1</td></tr><tr><td>Pregresso bleeding / predisposizione</td><td>1</td></tr><tr><td>INR labile</td><td>1</td></tr><tr><td>Età &gt;65</td><td>1</td></tr><tr><td>Farmaci predisponenti</td><td>1</td></tr><tr><td>Alcol</td><td>1</td></tr></table>`),0);return shell("HAS-BLED","Score di rischio emorragico nel paziente con fibrillazione atriale.",["FA","Bleeding risk"],`<form id="f_hasbled"><div class="form-grid">${cb('h_htn','Ipertensione non controllata')}${cb('h_renal','Funzione renale alterata')}${cb('h_liver','Funzione epatica alterata')}${cb('h_stroke','Stroke pregresso')}${cb('h_bleed','Pregresso sanguinamento')}${cb('h_inr','INR labile')}${cb('h_age','Età > 65 anni')}${cb('h_drugs','Farmaci predisponenti')}${cb('h_alcohol','Alcol')}</div><div class="actions"><button type="button" class="primary" onclick="calcHasbled()">Calcola</button><button type="button" class="secondary" onclick="resetForm('f_hasbled')">Reset</button></div></form>`)}
-function calcHasbled(){const ids=['h_htn','h_renal','h_liver','h_stroke','h_bleed','h_inr','h_age','h_drugs','h_alcohol'];const score=ids.reduce((s,id)=>s+checked(id),0);let txt=score>=3?'Rischio emorragico alto':'Rischio non alto';setResult(`<h3>Risultato</h3><div class="big">${score}</div><div class="interp"><b>${txt}</b>.</div><div class="note">Uno score elevato non controindica automaticamente l’anticoagulazione: identifica fattori modificabili e richiede follow-up.</div>`)}
-function orbitTool(){setTimeout(()=>details(`<table class="table"><tr><th>Variabile</th><th>Punti</th></tr><tr><td>Età ≥75 anni</td><td>1</td></tr><tr><td>eGFR &lt;60 mL/min/1.73m²</td><td>1</td></tr><tr><td>Terapia antiaggregante</td><td>1</td></tr><tr><td>Bleeding history</td><td>2</td></tr><tr><td>Hb bassa / anemia</td><td>2</td></tr></table><p>Classi: 0–2 basso, 3 intermedio, ≥4 alto.</p>`),0);return shell("ORBIT","Bleeding score per pazienti con fibrillazione atriale.",["FA","Bleeding risk","Dettagli completi"],`<form id="f_orbit"><div class="form-grid">${cb('o_age','Età ≥75 anni')}${cb('o_egfr','eGFR <60')}${cb('o_antiplt','Terapia antiaggregante')}${cb('o_bleed','Pregresso sanguinamento')}${cb('o_anemia','Hb bassa / anemia')}</div><div class="actions"><button type="button" class="primary" onclick="calcOrbit()">Calcola</button><button type="button" class="secondary" onclick="resetForm('f_orbit')">Reset</button></div></form>`)}
-function calcOrbit(){const score=checked('o_age')+checked('o_egfr')+checked('o_antiplt')+2*checked('o_bleed')+2*checked('o_anemia');let cls=score<=2?'Basso':score===3?'Intermedio':'Alto';setResult(`<h3>Risultato</h3><div class="big">${score}</div><div class="interp">Rischio emorragico ORBIT: <b>${cls}</b>.</div>`)}
-function wellsTool(){setTimeout(()=>details(`<table class="table"><tr><th>Criterio</th><th>Punti</th></tr><tr><td>Segni clinici TVP</td><td>3</td></tr><tr><td>TEP più probabile di diagnosi alternativa</td><td>3</td></tr><tr><td>FC &gt;100/min</td><td>1.5</td></tr><tr><td>Immobilizzazione ≥3 giorni o chirurgia recente</td><td>1.5</td></tr><tr><td>Pregressa TVP/TEP</td><td>1.5</td></tr><tr><td>Emottisi</td><td>1</td></tr><tr><td>Neoplasia attiva</td><td>1</td></tr></table><p>Interpretazione: ≤4 TEP improbabile; &gt;4 TEP probabile.</p>`),0);return shell("Wells score – TEP","Probabilità clinica pre-test di embolia polmonare.",["TEP","Dettagli completi"],`<form id="f_wells"><div class="form-grid">${cb('w_dvt','Segni clinici di TVP')}${cb('w_alt','TEP più probabile di diagnosi alternativa')}${cb('w_hr','Frequenza cardiaca >100/min')}${cb('w_imm','Immobilizzazione ≥3 gg o chirurgia recente')}${cb('w_prev','Pregressa TVP/TEP')}${cb('w_hemo','Emottisi')}${cb('w_cancer','Neoplasia attiva')}</div><div class="actions"><button type="button" class="primary" onclick="calcWells()">Calcola</button><button type="button" class="secondary" onclick="resetForm('f_wells')">Reset</button></div></form>`)}
-function calcWells(){const score=3*checked('w_dvt')+3*checked('w_alt')+1.5*checked('w_hr')+1.5*checked('w_imm')+1.5*checked('w_prev')+checked('w_hemo')+checked('w_cancer');const cls=score>4?'TEP probabile':'TEP improbabile';setResult(`<h3>Risultato</h3><div class="big">${score.toFixed(1)}</div><div class="interp"><b>${cls}</b>.</div>`)}
-function genevaTool(){setTimeout(()=>details(`<table class="table"><tr><th>Criterio</th><th>Punti</th></tr><tr><td>Età &gt;65</td><td>1</td></tr><tr><td>TVP/TEP pregressa</td><td>3</td></tr><tr><td>Chirurgia/frattura ultimo mese</td><td>2</td></tr><tr><td>Neoplasia attiva</td><td>2</td></tr><tr><td>Dolore unilaterale arto inferiore</td><td>3</td></tr><tr><td>Emottisi</td><td>2</td></tr><tr><td>FC 75–94</td><td>3</td></tr><tr><td>FC ≥95</td><td>5</td></tr><tr><td>Dolore alla palpazione + edema unilaterale</td><td>4</td></tr></table><p>0–3 basso, 4–10 intermedio, ≥11 alto.</p>`),0);return shell("Revised Geneva","Probabilità clinica di TEP basata solo su dati clinici oggettivi.",["TEP","Dettagli completi"],`<form id="f_geneva"><div class="form-grid">${cb('g_age','Età > 65 anni')}${cb('g_prev','Pregressa TVP/TEP')}${cb('g_surg','Chirurgia/frattura nell’ultimo mese')}${cb('g_cancer','Neoplasia attiva')}${cb('g_legpain','Dolore unilaterale arto inferiore')}${cb('g_hemo','Emottisi')}<div class="field"><label>Frequenza cardiaca</label><select id="g_hr"><option value="0">&lt;75</option><option value="3">75–94</option><option value="5">≥95</option></select></div>${cb('g_dvt','Dolore alla palpazione vene profonde ed edema unilaterale')}</div><div class="actions"><button type="button" class="primary" onclick="calcGeneva()">Calcola</button><button type="button" class="secondary" onclick="resetForm('f_geneva')">Reset</button></div></form>`)}
-function calcGeneva(){const score=checked('g_age')+3*checked('g_prev')+2*checked('g_surg')+2*checked('g_cancer')+3*checked('g_legpain')+2*checked('g_hemo')+selNum('g_hr')+4*checked('g_dvt');const cls=score>=11?'Alta probabilità':score>=4?'Probabilità intermedia':'Bassa probabilità';setResult(`<h3>Risultato</h3><div class="big">${score}</div><div class="interp"><b>${cls}</b>.</div>`)}
-function percTool(){setTimeout(()=>details(`<p>La PERC è negativa solo se tutti gli 8 criteri sono assenti.</p><table class="table"><tr><th>Criterio PERC</th></tr><tr><td>Età &lt;50</td></tr><tr><td>FC &lt;100</td></tr><tr><td>SatO₂ ≥95%</td></tr><tr><td>No emottisi</td></tr><tr><td>No estrogeni</td></tr><tr><td>No chirurgia/trauma recente</td></tr><tr><td>No pregressa TVP/TEP</td></tr><tr><td>No segni clinici TVP</td></tr></table>`),0);return shell("PERC rule","Strumento di rule-out in pazienti a bassa probabilità clinica di TEP.",["TEP","Rule-out"],`<form id="f_perc"><div class="form-grid">${cb('p_age','Età < 50 anni')}${cb('p_hr','FC < 100/min')}${cb('p_sat','SatO₂ ≥ 95%')}${cb('p_hemo','Assenza di emottisi')}${cb('p_est','Assenza di estrogeni')}${cb('p_surg','Assenza di chirurgia/trauma recente')}${cb('p_prev','Assenza di pregressa TVP/TEP')}${cb('p_dvt','Assenza di segni clinici di TVP')}</div><div class="actions"><button type="button" class="primary" onclick="calcPerc()">Calcola</button><button type="button" class="secondary" onclick="resetForm('f_perc')">Reset</button></div></form>`)}
-function calcPerc(){const pass=['p_age','p_hr','p_sat','p_hemo','p_est','p_surg','p_prev','p_dvt'].every(id=>checked(id));setResult(`<h3>Risultato</h3><div class="big">${pass?'PERC−':'PERC+'}</div><div class="interp">${pass?'<b>Tutti i criteri soddisfatti</b>: in contesto di bassa probabilità clinica può supportare rule-out senza D-dimero.':'<b>Almeno un criterio non soddisfatto</b>: PERC non negativa.'}</div>`)}
-function pesiTool(){setTimeout(()=>details(`<table class="table"><tr><th>Variabile</th><th>Punti</th></tr><tr><td>Età</td><td>= anni</td></tr><tr><td>Sesso maschile</td><td>+10</td></tr><tr><td>Neoplasia</td><td>+30</td></tr><tr><td>Scompenso</td><td>+10</td></tr><tr><td>BPCO</td><td>+10</td></tr><tr><td>FC ≥110</td><td>+20</td></tr><tr><td>PAS &lt;100</td><td>+30</td></tr><tr><td>FR ≥30</td><td>+20</td></tr><tr><td>T &lt;36°C</td><td>+20</td></tr><tr><td>Alterazione stato mentale</td><td>+60</td></tr><tr><td>SatO₂ &lt;90%</td><td>+20</td></tr></table>`),0);return shell("PESI","Pulmonary Embolism Severity Index per la prognosi della TEP.",["TEP","Prognosi","Dettagli completi"],`<form id="f_pesi"><div class="form-grid"><div class="field"><label>Età (anni)</label><input id="pe_age" type="number" min="0" step="1" /></div><div class="field"><label>Sesso</label><select id="pe_sex"><option value="0">Femmina</option><option value="10">Maschio</option></select></div>${cb('pe_cancer','Neoplasia')}${cb('pe_hf','Scompenso cardiaco')}${cb('pe_copd','BPCO')}${cb('pe_hr','FC ≥110/min')}${cb('pe_sbp','PAS <100 mmHg')}${cb('pe_rr','FR ≥30/min')}${cb('pe_temp','Temperatura <36°C')}${cb('pe_mental','Alterazione stato mentale')}${cb('pe_sat','SatO₂ <90%')}</div><div class="actions"><button type="button" class="primary" onclick="calcPesi()">Calcola</button><button type="button" class="secondary" onclick="resetForm('f_pesi')">Reset</button></div></form>`)}
-function calcPesi(){const score=num('pe_age')+selNum('pe_sex')+30*checked('pe_cancer')+10*checked('pe_hf')+10*checked('pe_copd')+20*checked('pe_hr')+30*checked('pe_sbp')+20*checked('pe_rr')+20*checked('pe_temp')+60*checked('pe_mental')+20*checked('pe_sat');setResult(`<h3>Risultato</h3><div class="big">${Math.round(score)}</div><div class="interp"><b>${interpPesi(score)}</b>.</div>`)}
-function spesiTool(){setTimeout(()=>details(`<table class="table"><tr><th>Variabile</th><th>Punti</th></tr><tr><td>Età >80</td><td>1</td></tr><tr><td>Neoplasia</td><td>1</td></tr><tr><td>Scompenso o BPCO</td><td>1</td></tr><tr><td>FC ≥110</td><td>1</td></tr><tr><td>PAS &lt;100</td><td>1</td></tr><tr><td>SatO₂ &lt;90%</td><td>1</td></tr></table><p>0 = basso rischio; ≥1 = rischio aumentato.</p>`),0);return shell("sPESI","Versione semplificata del PESI.",["TEP","Prognosi"],`<form id="f_spesi"><div class="form-grid">${cb('s_age','Età > 80 anni')}${cb('s_cancer','Neoplasia')}${cb('s_hf_copd','Scompenso o BPCO')}${cb('s_hr','FC ≥110/min')}${cb('s_sbp','PAS <100 mmHg')}${cb('s_sat','SatO₂ <90%')}</div><div class="actions"><button type="button" class="primary" onclick="calcSpesi()">Calcola</button><button type="button" class="secondary" onclick="resetForm('f_spesi')">Reset</button></div></form>`)}
-function calcSpesi(){const score=['s_age','s_cancer','s_hf_copd','s_hr','s_sbp','s_sat'].reduce((s,id)=>s+checked(id),0);setResult(`<h3>Risultato</h3><div class="big">${score}</div><div class="interp">${score===0?'<b>Basso rischio</b>.':'<b>Rischio aumentato</b>.'}</div>`)}
-function bovaTool(){setTimeout(()=>details(`<table class="table"><tr><th>Variabile</th><th>Punti</th></tr><tr><td>PAS 90–100 mmHg</td><td>2</td></tr><tr><td>Troponina elevata</td><td>2</td></tr><tr><td>Disfunzione VD</td><td>2</td></tr><tr><td>FC ≥110/min</td><td>1</td></tr></table><p>0–2 stadio I, 3–4 stadio II, &gt;4 stadio III.</p>`),0);return shell("Bova score","Rischio di complicanze a breve termine nella TEP normotesa.",["TEP","Deterioramento"],`<form id="f_bova"><div class="form-grid">${cb('b_sbp','PAS 90–100 mmHg')}${cb('b_trop','Troponina elevata')}${cb('b_rv','Disfunzione ventricolo destro')}${cb('b_hr','FC ≥110/min')}</div><div class="actions"><button type="button" class="primary" onclick="calcBova()">Calcola</button><button type="button" class="secondary" onclick="resetForm('f_bova')">Reset</button></div></form>`)}
-function calcBova(){const score=2*checked('b_sbp')+2*checked('b_trop')+2*checked('b_rv')+checked('b_hr');const st=score<=2?'Stadio I':score<=4?'Stadio II':'Stadio III';setResult(`<h3>Risultato</h3><div class="big">${score}</div><div class="interp"><b>${st}</b>.</div>`)}
-function heartTool(){setTimeout(()=>details(`<table class="table"><tr><th>Componente</th><th>0</th><th>1</th><th>2</th></tr><tr><td>History</td><td>Lieve sospetto</td><td>Moderato</td><td>Forte sospetto</td></tr><tr><td>ECG</td><td>Normale</td><td>Aspecifico</td><td>ST depression</td></tr><tr><td>Age</td><td>&lt;45</td><td>45–64</td><td>≥65</td></tr><tr><td>Risk factors</td><td>Nessuno</td><td>1–2</td><td>≥3 o aterosclerosi nota</td></tr><tr><td>Troponin</td><td>Normale</td><td>1–3x</td><td>&gt;3x limite</td></tr></table><p>0–3 basso, 4–6 intermedio, 7–10 alto.</p>`),0);return shell("HEART score","Stratificazione del dolore toracico in PS/setting acuto.",["SCA","Dolore toracico","Dettagli completi"],`<form id="f_heart"><div class="form-grid"><div class="field"><label>History</label><select id="he_hist"><option value="0">Lieve sospetto</option><option value="1">Moderato</option><option value="2">Forte sospetto</option></select></div><div class="field"><label>ECG</label><select id="he_ecg"><option value="0">Normale</option><option value="1">Alterazioni aspecifiche</option><option value="2">ST depression significativa</option></select></div><div class="field"><label>Età</label><select id="he_age"><option value="0">&lt;45</option><option value="1">45–64</option><option value="2">≥65</option></select></div><div class="field"><label>Risk factors</label><select id="he_rf"><option value="0">Nessuno</option><option value="1">1–2 fattori</option><option value="2">≥3 o aterosclerosi nota</option></select></div><div class="field full"><label>Troponina</label><select id="he_trop"><option value="0">Normale</option><option value="1">1–3 × limite superiore</option><option value="2">&gt;3 × limite superiore</option></select></div></div><div class="actions"><button type="button" class="primary" onclick="calcHeart()">Calcola</button><button type="button" class="secondary" onclick="resetForm('f_heart')">Reset</button></div></form>`)}
-function calcHeart(){const score=['he_hist','he_ecg','he_age','he_rf','he_trop'].reduce((s,id)=>s+selNum(id),0);const cls=score<=3?'Basso rischio':score<=6?'Rischio intermedio':'Alto rischio';setResult(`<h3>Risultato</h3><div class="big">${score}</div><div class="interp"><b>${cls}</b>.</div>`)}
-function timiTool(){setTimeout(()=>details(`<table class="table"><tr><th>Criterio TIMI UA/NSTEMI</th><th>Punti</th></tr><tr><td>Età ≥65</td><td>1</td></tr><tr><td>≥3 fattori di rischio CAD</td><td>1</td></tr><tr><td>Stenosi coronarica nota ≥50%</td><td>1</td></tr><tr><td>Uso ASA ultimi 7 giorni</td><td>1</td></tr><tr><td>≥2 episodi anginosi in 24h</td><td>1</td></tr><tr><td>ST deviation</td><td>1</td></tr><tr><td>Marker elevati</td><td>1</td></tr></table>`),0);return shell("TIMI UA/NSTEMI","Score classico per ACS senza sopraslivellamento ST.",["SCA","Dettagli completi"],`<form id="f_timi"><div class="form-grid">${cb('ti_age','Età ≥65 anni')}${cb('ti_risk','≥3 fattori di rischio CAD')}${cb('ti_known','CAD nota ≥50%')}${cb('ti_asa','ASA negli ultimi 7 giorni')}${cb('ti_angina','≥2 episodi anginosi ultime 24h')}${cb('ti_st','ST deviation')}${cb('ti_mark','Biomarcatori elevati')}</div><div class="actions"><button type="button" class="primary" onclick="calcTimi()">Calcola</button><button type="button" class="secondary" onclick="resetForm('f_timi')">Reset</button></div></form>`)}
-function calcTimi(){const score=['ti_age','ti_risk','ti_known','ti_asa','ti_angina','ti_st','ti_mark'].reduce((s,id)=>s+checked(id),0);setResult(`<h3>Risultato</h3><div class="big">${score}</div><div class="interp">TIMI UA/NSTEMI: <b>${score}/7</b>.</div>`)}
-function daptTool(){setTimeout(()=>details(`<p>Versione pratica semplificata del DAPT score.</p><table class="table"><tr><th>Variabile</th><th>Punti</th></tr><tr><td>Età 65–74 / ≥75</td><td>-1 / -2</td></tr><tr><td>Fumatore</td><td>+1</td></tr><tr><td>Diabete</td><td>+1</td></tr><tr><td>MI pregresso / alla presentazione</td><td>+1</td></tr><tr><td>PCI/MI pregresso</td><td>+1</td></tr><tr><td>Stent piccolo / vena graft / CHF-LVEF bassa</td><td>+1 / +2</td></tr></table><p>≥2 può favorire prolungamento DAPT se bleeding acceptable.</p>`),0);return shell("DAPT score","Valutazione beneficio/rischio del prolungamento della doppia antiaggregazione.",["SCA","Antitrombotici"],`<form id="f_dapt"><div class="form-grid"><div class="field"><label>Età</label><select id="da_age"><option value="0">&lt;65</option><option value="-1">65–74</option><option value="-2">≥75</option></select></div>${cb('da_smoke','Fumatore')}${cb('da_dm','Diabete')}${cb('da_mi','MI alla presentazione')}${cb('da_prev','Pregresso MI o PCI')}${cb('da_small','Stent <3 mm')}${cb('da_chf','CHF o FE <30%')}${cb('da_graft','PCI su vena graft')}</div><div class="actions"><button type="button" class="primary" onclick="calcDapt()">Calcola</button><button type="button" class="secondary" onclick="resetForm('f_dapt')">Reset</button></div></form>`)}
-function calcDapt(){const score=selNum('da_age')+checked('da_smoke')+checked('da_dm')+checked('da_mi')+checked('da_prev')+checked('da_small')+2*checked('da_chf')+2*checked('da_graft');setResult(`<h3>Risultato</h3><div class="big">${score}</div><div class="interp">${score>=2?'<b>Possibile beneficio</b> da DAPT prolungata.':'<b>Beneficio meno evidente</b> da DAPT prolungata.'}</div><div class="note">Usare insieme al rischio di sanguinamento e al contesto clinico.</div>`)}
-function preciseTool(){setTimeout(()=>details(`<p>Modulo pratico orientativo. Il PRECISE-DAPT completo richiede regressione/formula dedicata con età, clearance creatinina, Hb, leucociti e bleeding history.</p><table class="table"><tr><th>Variabile chiave</th></tr><tr><td>Età</td></tr><tr><td>Clearance creatinina</td></tr><tr><td>Emoglobina</td></tr><tr><td>Leucociti</td></tr><tr><td>Pregresso sanguinamento</td></tr></table>`),0);return shell("PRECISE-DAPT","Promemoria dettagliato delle variabili richieste.",["SCA","Antitrombotici"],`<form id="f_precise"><div class="form-grid"><div class="field"><label>Età</label><input id="pr_age" type="number" step="1" /></div><div class="field"><label>Clearance creatinina (mL/min)</label><input id="pr_crcl" type="number" step="0.1" /></div><div class="field"><label>Emoglobina (g/dL)</label><input id="pr_hb" type="number" step="0.1" /></div><div class="field"><label>Leucociti (10^9/L)</label><input id="pr_wbc" type="number" step="0.1" /></div>${cb('pr_bleed','Pregresso sanguinamento')}</div><div class="actions"><button type="button" class="primary" onclick="calcPrecise()">Valuta</button><button type="button" class="secondary" onclick="resetForm('f_precise')">Reset</button></div></form>`)}
-function calcPrecise(){const alerts=[];if(num('pr_age')>=75)alerts.push('età avanzata');if(num('pr_crcl')&&num('pr_crcl')<60)alerts.push('clearance ridotta');if(num('pr_hb')&&num('pr_hb')<12)alerts.push('Hb bassa');if(num('pr_wbc')&&num('pr_wbc')>11)alerts.push('leucocitosi');if(checked('pr_bleed'))alerts.push('pregresso bleeding');setResult(`<h3>Valutazione pratica</h3><div class="interp">${alerts.length?'Fattori che spingono verso <b>maggiore rischio emorragico</b>: '+alerts.join(', ')+'.':'Nessun elemento maggiore inserito; per lo score formale serve la formula completa.'}</div>`)}
-function egfrTool(){setTimeout(()=>details(`<p><b>CKD-EPI 2021 creatinina</b> (senza razza):</p><p>eGFR = 142 × min(Scr/k,1)<sup>a</sup> × max(Scr/k,1)<sup>-1.200</sup> × 0.9938<sup>Età</sup> × 1.012 [se femmina]</p><table class="table"><tr><th>Sesso</th><th>k</th><th>a</th></tr><tr><td>Femmina</td><td>0.7</td><td>-0.241</td></tr><tr><td>Maschio</td><td>0.9</td><td>-0.302</td></tr></table>`),0);return shell("eGFR CKD-EPI 2021","Stima della funzione renale in mL/min/1.73m².",["Utility","Renale","Dettagli completi"],`<form id="f_egfr"><div class="form-grid"><div class="field"><label>Età (anni)</label><input id="eg_age" type="number" min="1" step="1" /></div><div class="field"><label>Sesso</label><select id="eg_sex"><option value="F">Femmina</option><option value="M">Maschio</option></select></div><div class="field full"><label>Creatinina sierica (mg/dL)</label><input id="eg_scr" type="number" min="0" step="0.01" /></div></div><div class="actions"><button type="button" class="primary" onclick="calcEgfr()">Calcola</button><button type="button" class="secondary" onclick="resetForm('f_egfr')">Reset</button></div></form>`)}
-function calcEgfr(){const age=num('eg_age'),scr=num('eg_scr'),sex=val('eg_sex');if(!age||!scr){setResult('<h3>Risultato</h3><div class="note">Inserisci età e creatinina.</div>');return}const k=sex==='F'?0.7:0.9;const a=sex==='F'?-0.241:-0.302;const sexFactor=sex==='F'?1.012:1;const ratio=scr/k;const egfr=142*Math.pow(Math.min(ratio,1),a)*Math.pow(Math.max(ratio,1),-1.200)*Math.pow(0.9938,age)*sexFactor;let stage=egfr>=90?'G1':egfr>=60?'G2':egfr>=45?'G3a':egfr>=30?'G3b':egfr>=15?'G4':'G5';setResult(`<h3>Risultato</h3><div class="big">${egfr.toFixed(1)}</div><div class="interp">eGFR <b>${stage}</b> mL/min/1.73m².</div>`)}
-function cgTool(){setTimeout(()=>details(`<p><b>Cockcroft-Gault</b>:</p><p>CrCl = ((140 − età) × peso / (72 × creatinina)) × 0.85 [se femmina]</p>`),0);return shell("Cockcroft-Gault","Stima della clearance creatinina in mL/min.",["Utility","Renale"],`<form id="f_cg"><div class="form-grid"><div class="field"><label>Età</label><input id="cg_age" type="number" step="1" /></div><div class="field"><label>Peso (kg)</label><input id="cg_w" type="number" step="0.1" /></div><div class="field"><label>Creatinina (mg/dL)</label><input id="cg_scr" type="number" step="0.01" /></div><div class="field"><label>Sesso</label><select id="cg_sex"><option value="M">Maschio</option><option value="F">Femmina</option></select></div></div><div class="actions"><button type="button" class="primary" onclick="calcCg()">Calcola</button><button type="button" class="secondary" onclick="resetForm('f_cg')">Reset</button></div></form>`)}
-function calcCg(){const age=num('cg_age'),w=num('cg_w'),scr=num('cg_scr');if(!age||!w||!scr){setResult('<h3>Risultato</h3><div class="note">Inserisci età, peso e creatinina.</div>');return}let crcl=((140-age)*w)/(72*scr);if(val('cg_sex')==='F')crcl*=0.85;setResult(`<h3>Risultato</h3><div class="big">${crcl.toFixed(1)}</div><div class="interp">Clearance creatinina stimata in mL/min.</div>`)}
-function ldlTool(){setTimeout(()=>details(`<p><b>Formula di Friedewald</b>:</p><p>LDL = Colesterolo totale − HDL − (Trigliceridi / 5)</p><p>Validità limitata se TG elevati (tipicamente &gt;400 mg/dL) o in condizioni particolari.</p>`),0);return shell("LDL Friedewald","Calcolo LDL in mg/dL.",["Utility","Lipidi"],`<form id="f_ldl"><div class="form-grid"><div class="field"><label>Colesterolo totale</label><input id="ldl_tc" type="number" step="0.1" /></div><div class="field"><label>HDL</label><input id="ldl_hdl" type="number" step="0.1" /></div><div class="field full"><label>Trigliceridi</label><input id="ldl_tg" type="number" step="0.1" /></div></div><div class="actions"><button type="button" class="primary" onclick="calcLdl()">Calcola</button><button type="button" class="secondary" onclick="resetForm('f_ldl')">Reset</button></div></form>`)}
-function calcLdl(){const tc=num('ldl_tc'),hdl=num('ldl_hdl'),tg=num('ldl_tg');if(!tc||!hdl||!tg){setResult('<h3>Risultato</h3><div class="note">Inserisci colesterolo totale, HDL e trigliceridi.</div>');return}const ldl=tc-hdl-(tg/5);setResult(`<h3>Risultato</h3><div class="big">${ldl.toFixed(1)}</div><div class="interp">LDL calcolato in mg/dL.</div><div class="note">${tg>400?'Trigliceridi elevati: formula di Friedewald poco affidabile.':''}</div>`)}
-function qtcTool(){setTimeout(()=>details(`<table class="table"><tr><th>Formula</th><th>Espressione</th></tr><tr><td>Bazett</td><td>QT / √RR</td></tr><tr><td>Fridericia</td><td>QT / RR^(1/3)</td></tr></table><p>Inserire QT in ms e frequenza cardiaca in bpm.</p>`),0);return shell("QTc","Correzione del QT con formule di Bazett e Fridericia.",["Utility","ECG"],`<form id="f_qtc"><div class="form-grid"><div class="field"><label>QT misurato (ms)</label><input id="qt_ms" type="number" step="1" /></div><div class="field"><label>Frequenza cardiaca (bpm)</label><input id="qt_hr" type="number" step="1" /></div></div><div class="actions"><button type="button" class="primary" onclick="calcQtc()">Calcola</button><button type="button" class="secondary" onclick="resetForm('f_qtc')">Reset</button></div></form>`)}
-function calcQtc(){const qt=num('qt_ms'),hr=num('qt_hr');if(!qt||!hr){setResult('<h3>Risultato</h3><div class="note">Inserisci QT e frequenza cardiaca.</div>');return}const rr=60/hr;const baz=qt/Math.sqrt(rr);const fri=qt/Math.cbrt(rr);setResult(`<h3>Risultato</h3><div class="interp"><b>Bazett:</b> ${baz.toFixed(0)} ms<br><b>Fridericia:</b> ${fri.toFixed(0)} ms</div>`)}
-function bmiTool(){setTimeout(()=>details(`<p><b>BMI</b> = peso / altezza².</p><p><b>BSA Mosteller</b> = √((altezza cm × peso kg) / 3600).</p>`),0);return shell("BMI + BSA","Antropometria clinica rapida.",["Utility"],`<form id="f_bmi"><div class="form-grid"><div class="field"><label>Peso (kg)</label><input id="bm_w" type="number" step="0.1" /></div><div class="field"><label>Altezza (cm)</label><input id="bm_h" type="number" step="0.1" /></div></div><div class="actions"><button type="button" class="primary" onclick="calcBmi()">Calcola</button><button type="button" class="secondary" onclick="resetForm('f_bmi')">Reset</button></div></form>`)}
-function calcBmi(){const w=num('bm_w'),hcm=num('bm_h');if(!w||!hcm){setResult('<h3>Risultato</h3><div class="note">Inserisci peso e altezza.</div>');return}const hm=hcm/100;const bmi=w/(hm*hm);const bsa=Math.sqrt((hcm*w)/3600);setResult(`<h3>Risultato</h3><div class="interp"><b>BMI:</b> ${bmi.toFixed(1)} kg/m²<br><b>BSA:</b> ${bsa.toFixed(2)} m²</div>`)}
+function num(id){const e=document.getElementById(id);return !e||e.value.trim()===''?NaN:Number(e.value)}
+function selNum(id){return Number(val(id)||0)}
+function checked(id){return document.getElementById(id)?.checked?1:0}
+function setResult(html){const e=document.getElementById('result');if(e)e.innerHTML=html}
+function resetForm(formId){document.getElementById(formId)?.reset();setResult('<h3>Risultato</h3><div class="note">Compila i campi e premi Calcola.</div>')}
+function details(html){const e=document.getElementById('detailsBox');if(e)e.innerHTML=html}
+function shell(title,subtitle,badges,formHtml){return `<div class="hero"><section class="card"><h2>${title}</h2><p>${subtitle}</p><div class="badges">${badges.map(b=>`<span class="badge">${b}</span>`).join('')}</div></section><section class="card result" id="result" role="status" aria-live="polite"><h3>Risultato</h3><div class="note">Compila i campi e premi Calcola.</div></section></div><div class="grid"><section class="card">${formHtml}</section><section class="card help"><h3 style="margin-top:0">Dettagli di calcolo</h3><div id="detailsBox"></div></section></div><footer>Strumento di supporto clinico. Le stime non sostituiscono linee guida, validazione locale o giudizio medico. Non inserire dati identificativi del paziente.</footer>`}
+function cb(id,label){return `<label class="checkbox"><input id="${id}" type="checkbox"><span>${label}</span></label>`}
+function infoTool(title,text,bullets){return `<section class="card"><h2>${title}</h2><p class="help">${text}</p><div class="badges">${bullets.map(b=>`<span class="badge">${b}</span>`).join('')}</div><div class="warn">Non è disponibile un risultato numerico validato in questa versione.</div></section>`}
+function field(id,label,min=0,max=200,step='any',extra=''){return `<div class="field"><label for="${id}">${label}</label><input id="${id}" type="number" min="${min}" max="${max}" step="${step}" required>${extra?`<small>${extra}</small>`:''}</div>`}
+function select(id,label,opts){return `<div class="field"><label for="${id}">${label}</label><select id="${id}">${opts.map(([v,l])=>`<option value="${v}">${l}</option>`).join('')}</select></div>`}
+function plainBox(id,fields,title,subtitle,badges,explain,notice=''){const content=fields.join('');const f=`<form id="f_${id}" onsubmit="event.preventDefault();calcConfigured('${id}')"><div class="form-grid">${content}</div><div class="actions"><button class="primary" type="submit">Calcola</button><button type="button" class="secondary" onclick="resetForm('f_${id}')">Reset</button></div>${notice?`<div class="warn">${notice}</div>`:''}</form>`;
+const output=shell(title,subtitle,badges,f);queueMicrotask(()=>{if(state.current===id)details(explain)});return output}
+function invalid(message='Controlla i campi numerici obbligatori e i rispettivi intervalli.'){setResult(`<h3>Controlla i dati</h3><div class="warn">${message}</div>`)}
+function req(ids){return ids.every(id=>{const el=document.getElementById(id);return el&&el.value.trim()!==''&&el.validity.valid&&Number.isFinite(Number(el.value))})}
+function show(primary,interpretation,note='',rows=[]){setResult(`<h3>Risultato</h3><div class="big">${primary}</div><div class="interp">${interpretation}</div>${note?`<div class="note">${note}</div>`:''}${rows.length?`<table class="table"><tr><th>Voce</th><th>Valore</th></tr>${rows.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('')}</table>`:''}`)}
+function fScore(ids){return ids.reduce((s,id)=>s+checked(id),0)}
+function interpPesi(s){return s<=65?'Classe I — molto basso':s<=85?'Classe II — basso':s<=105?'Classe III — intermedio':s<=125?'Classe IV — alto':'Classe V — molto alto'}
+const items={
+ chadsvasc:{title:'CHA₂DS₂-VASc',subtitle:'Stima del rischio tromboembolico nella fibrillazione atriale.',badges:['FA','Stroke risk'],fields:[cb('c_hf','Scompenso cardiaco / FE ridotta'),cb('c_htn','Ipertensione'),cb('c_dm','Diabete mellito'),cb('c_stroke','Stroke/TIA/TE pregresso'),cb('c_vasc','Vasculopatia'),select('c_age','Età',[['0','<65'],['1','65–74'],['2','≥75']]),select('c_sex','Sesso',[['0','Maschio'],['1','Femmina']])],explain:'<p>1 punto: scompenso, ipertensione, diabete, vasculopatia, età 65–74, sesso femminile. 2 punti: età ≥75, stroke/TIA/TE pregresso.</p><p>Il sesso è un modificatore del rischio: evitare soglie indiscriminate in base al totale.</p>',run:()=>{const s=fScore(['c_hf','c_htn','c_dm','c_vasc'])+2*checked('c_stroke')+selNum('c_age')+selNum('c_sex');show(`${s} punti`,'CHA₂DS₂-VASc calcolato.','La decisione su anticoagulazione considera soglie specifiche per sesso, rischio assoluto e linee guida aggiornate.')}} ,
+ hasbled:{title:'HAS-BLED',subtitle:'Identificazione dei fattori di rischio emorragico nella FA.',badges:['FA','Bleeding'],fields:[cb('h_htn','Ipertensione non controllata (PAS >160)'),cb('h_renal','Funzione renale alterata'),cb('h_liver','Funzione epatica alterata'),cb('h_stroke','Stroke pregresso'),cb('h_bleed','Pregresso bleeding/predisposizione'),cb('h_inr','INR labile (se VKA)'),cb('h_age','Età >65 anni'),cb('h_drugs','Farmaci predisponenti (antiaggreganti/FANS)'),cb('h_alcohol','Eccesso di alcol')],explain:'<p>1 punto per ciascun criterio (funzione renale ed epatica separatamente; farmaci e alcol separatamente). Totale 0–9.</p><p>≥3 indica maggior rischio e richiede correzione dei fattori modificabili, non sospensione automatica della terapia.</p>',run:()=>{const s=fScore(['h_htn','h_renal','h_liver','h_stroke','h_bleed','h_inr','h_age','h_drugs','h_alcohol']);show(`${s}/9`,s>=3?'Rischio emorragico elevato.':'Rischio emorragico inferiore alla soglia ≥3.','Lo score non costituisce di per sé una controindicazione all’anticoagulazione.')}} ,
+ orbit:{title:'ORBIT',subtitle:'Rischio di sanguinamento nella FA.',badges:['FA','Bleeding'],fields:[cb('o_age','Età ≥75 anni'),cb('o_egfr','eGFR <60 mL/min/1,73 m²'),cb('o_antiplt','Antiaggregante concomitante'),cb('o_bleed','Storia di sanguinamento'),cb('o_anemia','Anemia o Hb ridotta')],explain:'<p>Età ≥75: 1; eGFR <60: 1; antiaggregante: 1; anamnesi di sanguinamento: 2; Hb ridotta/anemia: 2.</p><p>0–2 basso, 3 intermedio, ≥4 alto.</p>',run:()=>{const s=fScore(['o_age','o_egfr','o_antiplt'])+2*fScore(['o_bleed','o_anemia']);show(`${s}/7`,`Rischio ${s<=2?'basso':s===3?'intermedio':'alto'}.`)}} ,
+ heart:{title:'HEART score',subtitle:'Stratificazione del rischio nel dolore toracico acuto.',badges:['SCA','Dolore toracico'],fields:[select('he_hist','History',[['0','Lieve sospetto'],['1','Moderato'],['2','Forte sospetto']]),select('he_ecg','ECG',[['0','Normale'],['1','Alterazioni aspecifiche'],['2','Deviazione ST significativa']]),select('he_age','Età',[['0','<45'],['1','45–64'],['2','≥65']]),select('he_rf','Fattori di rischio',[['0','Nessuno'],['1','1–2'],['2','≥3 o aterosclerosi nota']]),select('he_trop','Troponina',[['0','Normale'],['1','1–3× limite superiore'],['2','>3× limite superiore']])],explain:'<p>History, ECG, Age, Risk factors, Troponin: 0, 1 o 2 punti ciascuno. 0–3 basso, 4–6 intermedio, 7–10 alto.</p><p>Non usare in luogo dell’ECG seriato, degli algoritmi hs-cTn e dei percorsi per SCA.</p>',run:()=>{const s=['he_hist','he_ecg','he_age','he_rf','he_trop'].reduce((s,id)=>s+selNum(id),0);show(`${s}/10`,`Rischio ${s<=3?'basso':s<=6?'intermedio':'alto'}.`,'In caso di STEMI o presentazione ad alto rischio non attendere il punteggio per il percorso urgente.')}} ,
+ wells:{title:'Wells PE',subtitle:'Probabilità clinica pre-test di embolia polmonare.',badges:['TEP','Probabilità clinica'],fields:[cb('w_dvt','Segni clinici TVP'),cb('w_alt','TEP più probabile di diagnosi alternativa'),cb('w_hr','FC >100/min'),cb('w_imm','Immobilizzazione ≥3 giorni o chirurgia ultime 4 settimane'),cb('w_prev','Pregressa TVP/TEP'),cb('w_hemo','Emottisi'),cb('w_cancer','Neoplasia attiva')],explain:'<p>Segni TVP 3; TEP più probabile 3; FC >100 1,5; immobilità/chirurgia 1,5; pregressa TVP/TEP 1,5; emottisi 1; neoplasia 1.</p><p>Modello a due livelli: ≤4 TEP improbabile, >4 TEP probabile.</p>',run:()=>{const s=3*fScore(['w_dvt','w_alt'])+1.5*fScore(['w_hr','w_imm','w_prev'])+fScore(['w_hemo','w_cancer']);show(s.toFixed(1),s>4?'TEP probabile.':'TEP improbabile.','Integra con algoritmo diagnostico, D-dimero adattato e imaging secondo indicazione.')}} ,
+ geneva:{title:'Revised Geneva',subtitle:'Probabilità clinica pre-test di TEP.',badges:['TEP','Probabilità clinica'],fields:[cb('g_age','Età >65 anni'),cb('g_prev','Pregressa TVP/TEP'),cb('g_surg','Chirurgia/frattura nell’ultimo mese'),cb('g_cancer','Neoplasia attiva'),cb('g_legpain','Dolore unilaterale arto inferiore'),cb('g_hemo','Emottisi'),select('g_hr','FC',[['0','<75'],['3','75–94'],['5','≥95']]),cb('g_dvt','Dolore palpazione vene profonde + edema unilaterale')],explain:'<p>Età >65 1; TEV pregressa 3; chirurgia/frattura 2; neoplasia 2; dolore arto 3; emottisi 2; FC 75–94 3 o ≥95 5; segni TVP 4.</p><p>0–3 basso, 4–10 intermedio, ≥11 alto.</p>',run:()=>{const s=checked('g_age')+3*checked('g_prev')+2*fScore(['g_surg','g_cancer','g_hemo'])+3*checked('g_legpain')+selNum('g_hr')+4*checked('g_dvt');show(`${s} punti`,s>=11?'Alta probabilità.':s>=4?'Probabilità intermedia.':'Bassa probabilità.')}} ,
+ perc:{title:'PERC rule',subtitle:'Criteri di esclusione TEP solo se probabilità clinica iniziale molto bassa.',badges:['TEP','Rule-out'],fields:[cb('p_age','Età <50 anni'),cb('p_hr','FC <100/min'),cb('p_sat','SpO₂ ≥95%'),cb('p_hemo','Assenza emottisi'),cb('p_est','Assenza estrogeni'),cb('p_surg','Assenza chirurgia/trauma recente'),cb('p_prev','Assenza pregressa TVP/TEP'),cb('p_dvt','Assenza segni di TVP')],explain:'<p>Per PERC negativa devono essere soddisfatti tutti gli otto criteri.</p><p><strong>Applicazione:</strong> soltanto dopo valutazione clinica che identifichi un rischio pre-test molto basso. Non utilizzare in pazienti ad alta probabilità.</p>',notice:'Seleziona soltanto i criteri verificati. Le caselle non selezionate impediscono di concludere PERC−.',run:()=>{const s=fScore(['p_age','p_hr','p_sat','p_hemo','p_est','p_surg','p_prev','p_dvt']);show(s===8?'PERC−':'PERC+',s===8?'8/8 criteri soddisfatti.':'Almeno un criterio non soddisfatto o non verificato.','PERC− è utile solo in pazienti già giudicati a probabilità pre-test molto bassa.')}} ,
+ pesi:{title:'PESI',subtitle:'Pulmonary Embolism Severity Index.',badges:['TEP','Prognosi'],fields:[field('pe_age','Età (anni)',18,120,1),select('pe_sex','Sesso',[['0','Femmina'],['10','Maschio']]),cb('pe_cancer','Neoplasia'),cb('pe_hf','Scompenso'),cb('pe_copd','BPCO'),cb('pe_hr','FC ≥110'),cb('pe_sbp','PAS <100'),cb('pe_rr','FR ≥30'),cb('pe_temp','Temperatura <36°C'),cb('pe_mental','Alterazione stato mentale'),cb('pe_sat','SpO₂ <90%')],explain:'<p>Età in anni; maschio +10; neoplasia +30; scompenso +10; BPCO +10; FC ≥110 +20; PAS <100 +30; FR ≥30 +20; T <36°C +20; stato mentale alterato +60; SpO₂ <90% +20.</p><p>≤65 I, 66–85 II, 86–105 III, 106–125 IV, >125 V.</p>',run:()=>{if(!req(['pe_age']))return invalid();const s=num('pe_age')+selNum('pe_sex')+30*checked('pe_cancer')+10*fScore(['pe_hf','pe_copd'])+20*fScore(['pe_hr','pe_rr','pe_temp','pe_sat'])+30*checked('pe_sbp')+60*checked('pe_mental');show(`${s} punti`,interpPesi(s),'La classificazione prognostica non sostituisce l’accertamento di instabilità emodinamica o rischio intermedio-alto.')}} ,
+ spesi:{title:'sPESI',subtitle:'PESI semplificato per la prognosi della TEP.',badges:['TEP','Prognosi'],fields:[cb('s_age','Età >80'),cb('s_cancer','Neoplasia'),cb('s_hf_copd','Scompenso o BPCO'),cb('s_hr','FC ≥110'),cb('s_sbp','PAS <100'),cb('s_sat','SpO₂ <90%')],explain:'<p>Un punto per ciascuno dei 6 criteri: età >80, neoplasia, scompenso o BPCO, FC ≥110, PAS <100, SpO₂ <90%. Totale 0–6.</p><p>0 = basso rischio; ≥1 = maggior rischio.</p>',run:()=>{const s=fScore(['s_age','s_cancer','s_hf_copd','s_hr','s_sbp','s_sat']);show(`${s}/6`,s===0?'Basso rischio prognostico.':'Rischio prognostico aumentato.')}} ,
+ bova:{title:'Bova score',subtitle:'Rischio di complicanze nella TEP normotesa.',badges:['TEP','Deterioramento'],fields:[cb('b_sbp','PAS 90–100 mmHg'),cb('b_trop','Troponina elevata'),cb('b_rv','Disfunzione VD'),cb('b_hr','FC ≥110')],explain:'<p>PAS 90–100: 2; troponina: 2; disfunzione VD: 2; FC ≥110: 1.</p><p>0–2 stadio I; 3–4 stadio II; 5–7 stadio III.</p><p>Con instabilità emodinamica il percorso clinico è diverso: questo modello riguarda la TEP normotesa.</p>',run:()=>{const s=2*fScore(['b_sbp','b_trop','b_rv'])+checked('b_hr');show(`${s}/7`,`Stadio ${s<=2?'I':s<=4?'II':'III'}.`)}} ,
+ timi:{title:'TIMI UA/NSTEMI',subtitle:'Score di rischio nelle SCA senza sopraslivellamento.',badges:['SCA','TIMI'],fields:[cb('ti_age','Età ≥65'),cb('ti_risk','≥3 fattori di rischio CAD'),cb('ti_known','Stenosi coronarica nota ≥50%'),cb('ti_asa','ASA ultimi 7 giorni'),cb('ti_angina','≥2 episodi anginosi nelle 24 h'),cb('ti_st','Deviazione ST'),cb('ti_mark','Biomarcatori elevati')],explain:'<p>1 punto ciascuno: età ≥65; ≥3 RF CAD; stenosi ≥50%; ASA ultimi 7 gg; ≥2 angine ultime 24 h; deviazione ST; biomarcatori elevati.</p>',run:()=>{const s=fScore(['ti_age','ti_risk','ti_known','ti_asa','ti_angina','ti_st','ti_mark']);show(`${s}/7`,'Punteggio TIMI UA/NSTEMI.','Interpretare rispetto al rischio assoluto e all’iter SCA; non equivale a GRACE.')}} ,
+ dapt:{title:'DAPT score',subtitle:'Orientamento sul prolungamento della DAPT dopo PCI.',badges:['SCA','Antitrombotici'],fields:[select('da_age','Età',[['0','<65'],['-1','65–74'],['-2','≥75']]),cb('da_smoke','Fumatore'),cb('da_dm','Diabete'),cb('da_mi','MI alla presentazione'),cb('da_prev','Pregresso MI o PCI'),cb('da_small','Stent diametro <3 mm'),cb('da_pacli','Stent a rilascio di paclitaxel (storico)'),cb('da_chf','CHF o LVEF <30%'),cb('da_graft','PCI su graft venoso')],explain:'<p>Età 65–74: −1; ≥75: −2; fumo +1; diabete +1; MI alla presentazione +1; MI/PCI pregresso +1; stent <3mm +1; stent paclitaxel +1; CHF/LVEF <30% +2; graft venoso +2.</p><p>≥2 può identificare beneficio netto da prolungamento in soggetti selezionati, dopo 12 mesi senza eventi.</p>',run:()=>{const s=selNum('da_age')+fScore(['da_smoke','da_dm','da_mi','da_prev','da_small','da_pacli'])+2*fScore(['da_chf','da_graft']);show(`${s} punti`,s>=2?'Potenziale beneficio da DAPT prolungata in pazienti selezionati.':'Beneficio del prolungamento meno evidente.','Da applicare solo nel contesto appropriato e con valutazione separata del rischio emorragico.')}} ,
+ precise:{title:'PRECISE-DAPT — orientativo',subtitle:'Raccolta di variabili e segnali di rischio emorragico. Non produce il PRECISE-DAPT validato.',badges:['SCA','Non validato'],fields:[field('pr_age','Età (anni)',18,120,1),field('pr_crcl','CrCl (mL/min)',1,250,0.1),field('pr_hb','Emoglobina (g/dL)',1,25,0.1),field('pr_wbc','Leucociti (10⁹/L)',0.1,100,0.1),cb('pr_bleed','Pregresso sanguinamento')],explain:'<p>Il PRECISE-DAPT numerico richiede il modello originale a 5 variabili: età, CrCl, Hb, leucociti e pregresso bleeding. Le soglie di allarme in questa schermata <b>non</b> calcolano lo score.</p>',notice:'Risultato qualitativo, non il PRECISE-DAPT ufficiale. Non applicare la soglia ≥25 a questo output.',run:()=>{if(!req(['pr_age','pr_crcl','pr_hb','pr_wbc']))return invalid();const signals=[];if(num('pr_age')>=75)signals.push('età ≥75');if(num('pr_crcl')<60)signals.push('CrCl <60');if(num('pr_hb')<12)signals.push('Hb <12');if(num('pr_wbc')>11)signals.push('leucociti >11');if(checked('pr_bleed'))signals.push('pregresso sanguinamento');show('Valutazione',signals.length?`Segnali di attenzione: ${signals.join(', ')}.`:'Nessuna soglia orientativa selezionata.','Questa non è una stima PRECISE-DAPT né permette di stabilire cut-off terapeutici.')}} ,
+ egfr:{title:'eGFR CKD-EPI 2021',subtitle:'Stima della filtrazione glomerulare da creatinina, senza razza.',badges:['Utility','Renale'],fields:[field('eg_age','Età (anni)',18,120,1),select('eg_sex','Sesso',[['F','Femmina'],['M','Maschio']]),field('eg_scr','Creatinina (mg/dL)',0.1,20,0.01)],explain:'<p>eGFR = 142 × min(Scr/k, 1)^a × max(Scr/k, 1)^−1,2 × 0,9938^età × 1,012 se femmina.</p><p>Femmina: k=0,7; a=−0,241. Maschio: k=0,9; a=−0,302.</p><p>Le categorie G1–G5 non definiscono da sole malattia renale cronica.</p>',run:()=>{if(!req(['eg_age','eg_scr']))return invalid();const age=num('eg_age'),scr=num('eg_scr'),sex=val('eg_sex'),k=sex==='F'?.7:.9,a=sex==='F'?-.241:-.302,r=scr/k;const e=142*Math.pow(Math.min(r,1),a)*Math.pow(Math.max(r,1),-1.2)*Math.pow(.9938,age)*(sex==='F'?1.012:1);const stage=e>=90?'G1':e>=60?'G2':e>=45?'G3a':e>=30?'G3b':e>=15?'G4':'G5';show(`${e.toFixed(1)} mL/min/1,73 m²`,`Categoria G: ${stage}.`,'Non equiparare automaticamente la categoria G a una diagnosi di CKD.')}} ,
+ cg:{title:'Cockcroft–Gault',subtitle:'Stima della clearance di creatinina.',badges:['Utility','Renale'],fields:[field('cg_age','Età',18,120,1),field('cg_w','Peso (kg)',1,400,0.1),field('cg_scr','Creatinina (mg/dL)',0.1,20,0.01),select('cg_sex','Sesso',[['M','Maschio'],['F','Femmina']])],explain:'<p>CrCl = [(140 − età) × peso (kg)]/[72 × creatinina (mg/dL)] × 0,85 se femmina.</p><p>La scelta del peso in obesità, sottopeso e dosaggio farmaci richiede valutazione specifica.</p>',run:()=>{if(!req(['cg_age','cg_w','cg_scr']))return invalid();let s=((140-num('cg_age'))*num('cg_w'))/(72*num('cg_scr'));if(val('cg_sex')==='F')s*=.85;show(`${s.toFixed(1)} mL/min`,'Clearance stimata con Cockcroft–Gault.','Verificare scelta del peso e contesto clinico.')}} ,
+ ldl:{title:'LDL Friedewald',subtitle:'Stima del colesterolo LDL (mg/dL).',badges:['Utility','Lipidi'],fields:[field('ldl_tc','Colesterolo totale',1,1000,0.1),field('ldl_hdl','HDL',1,300,0.1),field('ldl_tg','Trigliceridi',0,2000,0.1)],explain:'<p>LDL = colesterolo totale − HDL − trigliceridi/5 (tutti in mg/dL).</p><p>Non applicare se TG ≥400 mg/dL; possibile scarsa accuratezza a LDL bassi o TG elevati.</p>',run:()=>{if(!req(['ldl_tc','ldl_hdl','ldl_tg']))return invalid();const tc=num('ldl_tc'),hdl=num('ldl_hdl'),tg=num('ldl_tg');if(hdl>=tc)return invalid('HDL deve essere inferiore al colesterolo totale.');if(tg>=400)return invalid('TG ≥400 mg/dL: la formula di Friedewald non è applicabile.');const s=tc-hdl-tg/5;if(s<0)return invalid('Risultato negativo: valori non compatibili con la formula.');show(`${s.toFixed(1)} mg/dL`,'LDL calcolato con formula di Friedewald.')}} ,
+ qtc:{title:'QTc',subtitle:'Correzione del QT con Bazett e Fridericia.',badges:['Utility','ECG'],fields:[field('qt_ms','QT misurato (ms)',100,900,1),field('qt_hr','Frequenza cardiaca (bpm)',20,250,1)],explain:'<p>Bazett QTc = QT/√RR. Fridericia QTc = QT/RR^(1/3), con RR = 60/FC in secondi.</p><p>Bazett tende a sovracorreggere alle frequenze elevate.</p>',run:()=>{if(!req(['qt_ms','qt_hr']))return invalid();const rr=60/num('qt_hr');show(`${(num('qt_ms')/Math.sqrt(rr)).toFixed(0)} ms`,'QTc Bazett.',`QTc Fridericia: ${(num('qt_ms')/Math.cbrt(rr)).toFixed(0)} ms.`)}} ,
+ bmi:{title:'BMI + BSA',subtitle:'Antropometria clinica.',badges:['Utility'],fields:[field('bm_w','Peso (kg)',1,400,0.1),field('bm_h','Altezza (cm)',50,250,0.1)],explain:'<p>BMI = peso (kg)/altezza² (m²). BSA Mosteller = √(altezza cm × peso kg / 3600).</p>',run:()=>{if(!req(['bm_w','bm_h']))return invalid();const w=num('bm_w'),h=num('bm_h');show(`${(w/Math.pow(h/100,2)).toFixed(1)} kg/m²`,'BMI.',`BSA Mosteller: ${Math.sqrt(h*w/3600).toFixed(2)} m².`)}} ,
+ vexus:{title:'VExUS',subtitle:'Grading ecografico pratico della congestione venosa sistemica.',badges:['Scompenso','Eco bedside'],fields:[field('vex_ivc','IVC diametro (cm)',0.1,6,0.1),select('vex_ivc_coll','Collassabilità IVC',[['','Non specificata'],['>50','>50%'],['20–50','20–50%'],['<20','<20%']]),select('vex_hepatic','Vene epatiche',[['0','Normali'],['1','S blunted'],['2','S reversed']]),select('vex_portal','Vena porta',[['0','Pulsatilità <30%'],['1','30–49%'],['2','≥50%']]),select('vex_renal','Vene intrarenali',[['0','Continuo'],['1','Bifasico'],['2','Monofasico/discontinuo severo']])],explain:'<p><strong>Schema semplificato:</strong> IVC &lt;2 cm → 0; IVC ≥2 cm e nessuna alterazione Doppler severa → 1; una alterazione severa → 2; almeno due → 3.</p><p>Severo: epatiche S reversed, porta ≥50%, intrarenali monofasiche discontinue.</p><p>La collassabilità IVC è descrittiva, non modifica automaticamente il grado.</p>',run:()=>{if(!req(['vex_ivc']))return invalid();const ivc=num('vex_ivc'),severe=['vex_hepatic','vex_portal','vex_renal'].filter(id=>selNum(id)===2).length;const g=ivc<2?0:severe>=2?3:severe===1?2:1;show(`VExUS ${g}`,['Nessuna congestione venosa significativa secondo la soglia IVC semplificata.','Grado 1: IVC dilatata senza alterazioni Doppler severe.','Grado 2: IVC dilatata con una alterazione Doppler severa.','Grado 3: IVC dilatata con almeno due alterazioni Doppler severe.'][g],`Alterazioni Doppler severe: ${severe}. Collassabilità: ${val('vex_ivc_coll')||'non specificata'}. È uno schema operativo semplificato.`)}} ,
+ hfpef:{title:'H₂FPEF',subtitle:'Probabilità clinico-ecografica di HFpEF.',badges:['Scompenso','HFpEF'],fields:[cb('hf_bmi','BMI >30'),cb('hf_rx','≥2 farmaci antipertensivi'),cb('hf_af','FA'),cb('hf_pht','PASP >35 mmHg'),cb('hf_age','Età >60'),cb('hf_ee','E/e′ >9')],explain:'<p>Heavy BMI>30: 2; Hypertensive ≥2 farmaci: 1; AF: 3; Pulmonary HTN PASP>35: 1; Elder >60: 1; Filling pressure E/e′>9: 1.</p><p>0–1 basso, 2–5 intermedio, 6–9 alto.</p>',run:()=>{const s=2*checked('hf_bmi')+checked('hf_rx')+3*checked('hf_af')+fScore(['hf_pht','hf_age','hf_ee']);show(`${s}/9`,`${s<=1?'Bassa':s<=5?'Intermedia':'Alta'} probabilità di HFpEF.`)}} ,
+ hcm:{title:'HCM Risk-SCD',subtitle:'Rischio di morte cardiaca improvvisa a 5 anni nella HCM.',badges:['Cardiomiopatia','ESC','5 anni'],fields:[field('hcm_age','Età (anni)',16,120,1),field('hcm_mwt','Spessore massimo (mm)',5,70,0.1),field('hcm_lad','Atrio sinistro LAD (mm)',10,100,0.1),field('hcm_lvot','Gradiente LVOT massimo (mmHg)',0,250,0.1),cb('hcm_fhx','Familiarità per SCD'),cb('hcm_nsvt','NSVT'),cb('hcm_syn','Sincope inspiegata')],explain:'<p>PI = 0,15939858 × MWT − 0,00294271 × MWT² + 0,0259082 × LAD + 0,00446131 × LVOT + 0,4583082 × familiarità SCD + 0,82639195 × NSVT + 0,71650361 × sincope − 0,01799934 × età.</p><p>Rischio = 1 − 0,998 ^ exp(PI). &lt;4% basso; 4–&lt;6% intermedio; ≥6% alto.</p><p>Non applicabile indiscriminatamente a fenotipi o situazioni non comprese nella coorte originale.</p>',run:()=>{if(!req(['hcm_age','hcm_mwt','hcm_lad','hcm_lvot']))return invalid();const age=num('hcm_age'),mwt=num('hcm_mwt'),lad=num('hcm_lad'),lvot=num('hcm_lvot');const pi=.15939858*mwt-.00294271*mwt*mwt+.0259082*lad+.00446131*lvot+.4583082*checked('hcm_fhx')+.82639195*checked('hcm_nsvt')+.71650361*checked('hcm_syn')-.01799934*age;const r=100*(1-Math.pow(.998,Math.exp(pi)));show(`${r.toFixed(1)}%`,r>=6?'Rischio elevato.':r>=4?'Rischio intermedio.':'Rischio basso.',`PI ${pi.toFixed(3)}. La decisione su ICD richiede valutazione clinica complessiva.`)}}
+};
+function buildConfigured(id){const t=items[id];if(!t)return infoTool(id,'Modulo non disponibile.',[]);return plainBox(id,t.fields,t.title,t.subtitle,t.badges,t.explain,t.notice||'')}
+function calcConfigured(id){const t=items[id];if(t&&typeof t.run==='function')t.run()}
+function chadsTool(){return buildConfigured('chadsvasc')}
+function hasbledTool(){return buildConfigured('hasbled')}
+function orbitTool(){return buildConfigured('orbit')}
+function heartTool(){return buildConfigured('heart')}
+function wellsTool(){return buildConfigured('wells')}
+function genevaTool(){return buildConfigured('geneva')}
+function percTool(){return buildConfigured('perc')}
+function pesiTool(){return buildConfigured('pesi')}
+function spesiTool(){return buildConfigured('spesi')}
+function bovaTool(){return buildConfigured('bova')}
+function timiTool(){return buildConfigured('timi')}
+function daptTool(){return buildConfigured('dapt')}
+function preciseTool(){return buildConfigured('precise')}
+function egfrTool(){return buildConfigured('egfr')}
+function cgTool(){return buildConfigured('cg')}
+function ldlTool(){return buildConfigured('ldl')}
+function qtcTool(){return buildConfigured('qtc')}
+function bmiTool(){return buildConfigured('bmi')}
+function vexusTool(){return buildConfigured('vexus')}
+function hfpefTool(){return buildConfigured('hfpef')}
+function hcmTool(){return buildConfigured('hcm')}
+function renderTool(id){return buildConfigured(id)}
+</script>
+<!-- START: GRACE + RoPE / PASCAL; incorporati nel documento, nessuna dipendenza esterna -->
+<script>
+/*
+ * CardioTools Pro — aggiornamento GRACE / RoPE / PASCAL
+ * Inserire <script src="CardioTools_Upgrade_GRACE_RoPE.js"><\/script>
+ * subito prima di </body>, DOPO lo script originale dell'applicazione.
+ * Versione 1.0 — 01/11/2026
+ *
+ * Riferimenti:
+ * GRACE (nomogramma mortalità intraospedaliera, Granger 2003):
+ * https://eguideline.guidelinecentral.com/i/589485-acute-coronary-syndromes-guidelines/5
+ * Tertili NSTE-ACS: https://academic.oup.com/eurheartj/article/28/13/1598/2887402
+ * RoPE / PASCAL: https://pmc.ncbi.nlm.nih.gov/articles/PMC11569559/
+ * Coorte RoPE (prevalenza e frazione attribuibile):
+ * https://www.ncbi.nlm.nih.gov/books/NBK592989/bin/Kent_RS-SCOPE-2019-001_Appendix_A2_T2.pdf
+ */
+(function () {
+  'use strict';
 
-function vexusTool(){setTimeout(()=>details(`<p><b>VExUS pratico (schema semplificato)</b></p><table class="table"><tr><th>Passo</th><th>Interpretazione</th></tr><tr><td>IVC &lt; 2.0 cm</td><td><b>VExUS 0</b>: congestione venosa sistemica non significativa.</td></tr><tr><td>IVC ≥ 2.0 cm + nessuna severa alterazione Doppler</td><td><b>VExUS 1</b></td></tr><tr><td>IVC ≥ 2.0 cm + 1 alterazione severa</td><td><b>VExUS 2</b></td></tr><tr><td>IVC ≥ 2.0 cm + ≥2 alterazioni severe</td><td><b>VExUS 3</b></td></tr></table><p><b>Alterazioni severe considerate:</b> flusso epatico con <i>S reversed</i>, vena porta con pulsatility ≥50%, flusso venoso intrarenale monophasic/discontinuo marcato.</p><p><b>Alterazioni lievi/moderate:</b> epatica con S blunted, porta 30–49%, intrarenale biphasic.</p><div class="warn">Questo modulo fornisce un <b>grading operativo</b> utile al bedside. L'interpretazione finale va integrata con quadro clinico, setting ventilatorio e qualità della finestra ecografica.</div>`),0);return shell("VExUS","Valutazione ecografica della congestione venosa sistemica con grading 0–3.",["Scompenso","Congestione","Eco bedside"],`<form id="f_vexus"><div class="form-grid"><div class="field"><label>Diametro IVC (cm)</label><input id="vex_ivc" type="number" min="0" step="0.1" /><small>Soglia pratica: <b>2.0 cm</b>.</small></div><div class="field"><label>Collassabilità IVC</label><select id="vex_ivc_coll"><option value="">Non specificata</option><option value=">50">&gt;50%</option><option value="20-50">20–50%</option><option value="<20">&lt;20%</option></select><small>Campo descrittivo, non determina da solo il grado.</small></div><div class="field"><label>Vene epatiche</label><select id="vex_hepatic"><option value="0">Normale (S &gt; D)</option><option value="1">Alterazione lieve/moderata (S blunted)</option><option value="2">Severa (S reversed)</option></select></div><div class="field"><label>Vena porta</label><select id="vex_portal"><option value="0">Normale (&lt;30%)</option><option value="1">Alterazione lieve/moderata (30–49%)</option><option value="2">Severa (≥50%)</option></select></div><div class="field full"><label>Vene intrarenali</label><select id="vex_renal"><option value="0">Normale (continuous)</option><option value="1">Alterazione lieve/moderata (biphasic)</option><option value="2">Severa (monophasic/discontinuous marcata)</option></select></div></div><div class="actions"><button type="button" class="primary" onclick="calcVexus()">Calcola</button><button type="button" class="secondary" onclick="resetForm('f_vexus')">Reset</button></div></form>`)}
-function calcVexus(){const ivc=num('vex_ivc');if(!ivc){setResult('<h3>Risultato</h3><div class="note">Inserisci almeno il diametro della IVC.</div>');return}const hepatic=selNum('vex_hepatic');const portal=selNum('vex_portal');const renal=selNum('vex_renal');const severe=[hepatic,portal,renal].filter(x=>x===2).length;const moderate=[hepatic,portal,renal].filter(x=>x===1).length;let grade=0, label='', interp='';if(ivc<2){grade=0;label='Assenza di congestione venosa significativa';interp='IVC sotto la soglia pratica di 2.0 cm: quadro non compatibile con congestione sistemica significativa secondo schema VExUS semplificato.';}else{if(severe>=2){grade=3;label='Congestione venosa severa';interp='IVC dilatata con almeno due Doppler severamente patologici.';}else if(severe===1){grade=2;label='Congestione venosa moderata';interp='IVC dilatata con una alterazione Doppler severa.';}else{grade=1;label='Congestione lieve / iniziale';interp='IVC dilatata senza criteri Doppler severi; presenti reperti normali o solo lievi/moderati.';}}const coll=val('vex_ivc_coll');let extras=[];if(ivc>=2)extras.push('IVC dilatata');else extras.push('IVC non dilatata');if(coll)extras.push('collassabilità '+coll);if(hepatic===2)extras.push('epatiche severe');else if(hepatic===1)extras.push('epatiche lievemente/moderatamente alterate');if(portal===2)extras.push('porta severa');else if(portal===1)extras.push('porta lievemente/moderata');if(renal===2)extras.push('intrarenali severe');else if(renal===1)extras.push('intrarenali lievemente/moderate');const advice=grade<=1?'Integra con clinica, BNP, profilo destro e trend diuretico.':'Congestione rilevante: utile correlare con segni clinici, funzione renale, strategia di decongestione e trend seriali.';setResult(`<h3>Risultato</h3><div class="big">VExUS ${grade}</div><div class="interp"><b>${label}</b>.<br>${interp}</div><div class="note">Sintesi: ${extras.join(' • ')}.<br>${advice}</div>`)}
+  // L'app originale dichiara tools e groups con `const` nel primo script.
+  if (typeof renderTool !== 'function' || typeof shell !== 'function' ||
+      typeof tools === 'undefined' || typeof groups === 'undefined') {
+    console.error('CardioTools upgrade: caricare questo script dopo il codice originale.');
+    return;
+  }
 
-function hfpefTool(){setTimeout(()=>details(`<table class="table"><tr><th>Variabile</th><th>Punti</th></tr><tr><td>Heavy (BMI &gt;30)</td><td>2</td></tr><tr><td>Hypertensive (≥2 farmaci)</td><td>1</td></tr><tr><td>AF</td><td>3</td></tr><tr><td>Pulmonary HTN (PASP &gt;35)</td><td>1</td></tr><tr><td>Elder (&gt;60 anni)</td><td>1</td></tr><tr><td>Filling pressure (E/e' &gt;9)</td><td>1</td></tr></table><p>0–1 bassa probabilità; 2–5 intermedia; 6–9 alta.</p>`),0);return shell("H₂FPEF","Score clinico-eco per probabilità di HFpEF.",["Scompenso","Dettagli completi"],`<form id="f_hfpef"><div class="form-grid">${cb('hf_bmi','BMI > 30 kg/m²')}${cb('hf_rx','≥2 farmaci antipertensivi')}${cb('hf_af','Fibrillazione atriale')}${cb('hf_pht','PASP > 35 mmHg')}${cb('hf_age','Età > 60 anni')}${cb('hf_ee','E/e′ > 9')}</div><div class="actions"><button type="button" class="primary" onclick="calcHfpef()">Calcola</button><button type="button" class="secondary" onclick="resetForm('f_hfpef')">Reset</button></div></form>`)}
-function calcHfpef(){const score=2*checked('hf_bmi')+checked('hf_rx')+3*checked('hf_af')+checked('hf_pht')+checked('hf_age')+checked('hf_ee');const cls=score<=1?'Bassa probabilità HFpEF':score<=5?'Probabilità intermedia':'Alta probabilità HFpEF';setResult(`<h3>Risultato</h3><div class="big">${score}</div><div class="interp"><b>${cls}</b>.</div>`)}
-function infoTool(title,text,bullets){setTimeout(()=>details(`<p>${text}</p><ul>${bullets.map(x=>`<li>${x}</li>`).join('')}</ul>`),0);return `<section class="card"><h2>${title}</h2><p class="help">${text}</p><div class="badges">${bullets.map(b=>`<span class="badge">${b}</span>`).join('')}</div></section>`}
-function hcmTool(){setTimeout(()=>details(`<p><b>Formula ESC HCM Risk-SCD a 5 anni</b>:</p><p><code class="inline">Probabilità = 1 − 0.998 ^ exp(PI)</code></p><p>dove <code class="inline">PI</code> = 0.15939858×MWT − 0.00294271×MWT² + 0.0259082×LAD + 0.00446131×LVOT + 0.4583082×FHx_SCD + 0.82639195×NSVT + 0.71650361×Syncope − 0.01799934×Età</p><table class="table"><tr><th>Variabile</th><th>Unità</th></tr><tr><td>MWT = maximal wall thickness</td><td>mm</td></tr><tr><td>LAD = diametro atriale sinistro</td><td>mm</td></tr><tr><td>LVOT = gradiente massimo a riposo/Valsalva</td><td>mmHg</td></tr><tr><td>FHx SCD, NSVT, sincope inspiegata</td><td>0/1</td></tr></table><p>Soglie pratiche ESC: <b>&lt;4%</b> basso rischio, <b>4–&lt;6%</b> intermedio, <b>≥6%</b> alto.</p><div class="warn">Uso previsto: pazienti con HCM, in genere <b>≥16 anni</b>, dopo valutazione iniziale. Non sostituisce il giudizio clinico e non copre tutte le situazioni particolari.</div>`),0);return shell("HCM Risk-SCD","Calcolo del rischio di morte cardiaca improvvisa a 5 anni nella cardiomiopatia ipertrofica.",["Cardiomiopatie","5-year risk","ESC formula"],`<form id="f_hcm"><div class="form-grid"><div class="field"><label>Età (anni)</label><input id="hcm_age" type="number" min="16" step="1" /><small>Età alla valutazione clinica.</small></div><div class="field"><label>Spessore massimo parietale (MWT, mm)</label><input id="hcm_mwt" type="number" min="0" step="0.1" /><small>Massimo wall thickness.</small></div><div class="field"><label>Diametro atriale sinistro (LAD, mm)</label><input id="hcm_lad" type="number" min="0" step="0.1" /></div><div class="field"><label>Gradiente LVOT massimo (mmHg)</label><input id="hcm_lvot" type="number" min="0" step="0.1" /><small>Massimo a riposo o con Valsalva.</small></div>${cb('hcm_fhx','Familiarità per SCD')}${cb('hcm_nsvt','NSVT al monitoraggio')}${cb('hcm_syn','Sincope inspiegata')}</div><div class="actions"><button type="button" class="primary" onclick="calcHCM()">Calcola</button><button type="button" class="secondary" onclick="resetForm('f_hcm')">Reset</button></div><div class="warn">Nota: ho usato la formula ESC classica. Nei pazienti con caratteristiche non coperte dal modello, la decisione su ICD va integrata con il resto del profilo clinico.</div></form>`)}
-function calcHCM(){const age=num('hcm_age'),mwt=num('hcm_mwt'),lad=num('hcm_lad'),lvot=num('hcm_lvot'),fhx=checked('hcm_fhx'),nsvt=checked('hcm_nsvt'),syn=checked('hcm_syn');if(!age||!mwt||isNaN(lad)||isNaN(lvot)){setResult(`<h3>Risultato</h3><div class="note">Inserisci almeno età, MWT, LAD e gradiente LVOT.</div>`);return}const pi=(0.15939858*mwt)-(0.00294271*mwt*mwt)+(0.0259082*lad)+(0.00446131*lvot)+(0.4583082*fhx)+(0.82639195*nsvt)+(0.71650361*syn)-(0.01799934*age);const risk=(1-Math.pow(0.998,Math.exp(pi)))*100;let cls='Basso rischio';if(risk>=6)cls='Alto rischio';else if(risk>=4)cls='Rischio intermedio';setResult(`<h3>Risultato</h3><div class="big">${risk.toFixed(1)}%</div><div class="interp">Rischio stimato di SCD a 5 anni: <b>${cls}</b>.</div><div class="note">PI = ${pi.toFixed(3)}. Soglie pratiche ESC: &lt;4% basso, 4–&lt;6% intermedio, ≥6% alto.</div>`)}
-openTool(state.current);renderMenu();
+  const existingGrace = tools.find(t => t.id === 'grace');
+  if (existingGrace) existingGrace.meta = 'Mortalità intraospedaliera SCA · calcolo attivo';
+  if (!groups.some(g => g.key === 'pfo'))
+    groups.push({key: 'pfo', label: 'PFO / Stroke criptogenetico'});
+  if (!tools.some(t => t.id === 'rope'))
+    tools.push({id:'rope', group:'pfo', name:'RoPE + PASCAL',
+      meta:'PFO in ictus criptogenetico · causalità', favorite:false});
+
+  // Il renderTool originale istanziava simultaneamente TUTTI i moduli:
+  // i timer dei "Dettagli di calcolo" si sovrascrivevano. Dispatch lazy.
+  const renderers = {
+    heart: () => heartTool(), chadsvasc: () => chadsTool(),
+    hasbled: () => hasbledTool(), orbit: () => orbitTool(),
+    grace: () => graceTool(), wells: () => wellsTool(),
+    geneva: () => genevaTool(), perc: () => percTool(),
+    pesi: () => pesiTool(), spesi: () => spesiTool(),
+    bova: () => bovaTool(), timi: () => timiTool(),
+    dapt: () => daptTool(), precise: () => preciseTool(),
+    egfr: () => egfrTool(), cg: () => cgTool(),
+    ldl: () => ldlTool(), qtc: () => qtcTool(),
+    bmi: () => bmiTool(), vexus: () => vexusTool(),
+    hfpef: () => hfpefTool(), hcm: () => hcmTool(),
+    rope: () => ropeTool(),
+    hfapeff: () => infoTool('HFA-PEFF',
+      'Algoritmo strutturato nei domini funzionale, morfologico e biomarcatori. ' +
+      'Richiede una schermata dedicata con dati ecocardiografici e peptidi natriuretici.',
+      ['Dominio funzionale','Dominio morfologico','Biomarcatori',
+       'Stress test / cateterismo se indeterminato'])
+  };
+  renderTool = function (id) {
+    return renderers[id] ? renderers[id]() :
+      '<section class="card"><div class="empty">Modulo non disponibile.</div></section>';
+  };
+
+  // Helpers puri e testabili.
+  function band(x, limits, values) {
+    for (let i=0; i<limits.length; i++) if (x < limits[i]) return values[i];
+    return values[values.length-1];
+  }
+  function graceComponents(age, hr, sbp, cr, killip, arrest, st, troponin) {
+    const parts = {
+      'Età': band(age, [31,40,50,60,70,80,90], [0,8,25,41,58,75,91,100]),
+      'Frequenza cardiaca': band(hr, [51,70,90,110,150,200], [0,3,9,15,24,38,46]),
+      'Pressione sistolica': band(sbp, [81,100,120,140,160,200], [58,53,43,34,24,10,0]),
+      'Creatinina': band(cr, [0.4,0.8,1.2,1.6,2,4], [1,4,7,10,13,21,28]),
+      'Classe Killip': [0,20,39,59][killip-1],
+      'Arresto all’ingresso': arrest ? 39 : 0,
+      'Deviazione ST': st ? 28 : 0,
+      'Biomarcatori elevati': troponin ? 14 : 0
+    };
+    return { parts, score: Object.values(parts).reduce((a,b) => a+b,0) };
+  }
+  function graceMortality(score) {
+    // Punti -> mortalità intraospedaliera (%), nomogramma classico.
+    const xs = [60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,210,220,230,240,250];
+    const ys = [0.2,0.3,0.4,0.6,0.8,1.1,1.6,2.1,2.9,3.9,5.4,7.3,9.8,13,18,23,29,36,44,52];
+    if (score <= 60) return '≤0,2%';
+    if (score >= 250) return '≥52%';
+    for (let i=0; i<xs.length-1; i++) {
+      if (score <= xs[i+1]) {
+        const estimate = ys[i] + (score-xs[i])*(ys[i+1]-ys[i])/(xs[i+1]-xs[i]);
+        return '≈' + estimate.toFixed(1).replace('.', ',') + '%';
+      }
+    }
+    return 'n/d';
+  }
+  function readRequiredNumber(id, lo, hi) {
+    const element = document.getElementById(id);
+    if (!element || element.value.trim()==='') return null;
+    const n = Number(element.value);
+    return Number.isFinite(n) && n >= lo && n <= hi ? n : null;
+  }
+  function scheduleDetails(html, id) {
+    setTimeout(() => {
+      if (state.current === id && document.getElementById('detailsBox')) details(html);
+    }, 0);
+  }
+  function reportProblem(message) {
+    setResult('<h3>Controlla i dati</h3><div class="warn">' + message + '</div>');
+  }
+
+  function graceTool() {
+    scheduleDetails(`
+      <p><b>GRACE classico — mortalità intraospedaliera</b>. Somma dei punti attribuiti a 8 variabili.</p>
+      <table class="table"><tr><th>Variabile</th><th>Punti</th></tr>
+      <tr><td>Età ≤30 / 31–39 / 40–49 / 50–59 / 60–69 / 70–79 / 80–89 / ≥90 anni</td><td>0 / 8 / 25 / 41 / 58 / 75 / 91 / 100</td></tr>
+      <tr><td>FC ≤50 / 51–69 / 70–89 / 90–109 / 110–149 / 150–199 / ≥200 bpm</td><td>0 / 3 / 9 / 15 / 24 / 38 / 46</td></tr>
+      <tr><td>PAS ≤80 / 81–99 / 100–119 / 120–139 / 140–159 / 160–199 / ≥200 mmHg</td><td>58 / 53 / 43 / 34 / 24 / 10 / 0</td></tr>
+      <tr><td>Creatinina &lt;0,4 / 0,4–0,79 / 0,8–1,19 / 1,2–1,59 / 1,6–1,99 / 2–3,99 / ≥4 mg/dL</td><td>1 / 4 / 7 / 10 / 13 / 21 / 28</td></tr>
+      <tr><td>Killip I / II / III / IV</td><td>0 / 20 / 39 / 59</td></tr>
+      <tr><td>Arresto all'ingresso</td><td>39</td></tr>
+      <tr><td>Deviazione ST</td><td>28</td></tr>
+      <tr><td>Biomarcatori elevati</td><td>14</td></tr></table>
+      <p>Rischio intraospedaliero approssimato dal nomogramma pubblicato (interpolazione tra i punti tabulati).</p>
+      <p>Classi <b>NSTE-ACS</b>: ≤108 basso, 109–140 intermedio, &gt;140 alto. La scelta STEMI applica soglie di categoria differenti.</p>
+      <div class="warn">Questo non è GRACE 2.0 e non stima la mortalità a 6 mesi. Non usare da solo per decidere timing o terapia.</div>
+      <p><a href="https://eguideline.guidelinecentral.com/i/589485-acute-coronary-syndromes-guidelines/5" target="_blank" rel="noopener" style="color:#a5c7ff">Nomogramma GRACE originale</a></p>
+    `, 'grace');
+    return shell('GRACE — SCA',
+      'GRACE classico: punteggio e rischio stimato di mortalità intraospedaliera nella sindrome coronarica acuta.',
+      ['GRACE 1.0', '8 variabili', 'Calcolo attivo', 'Mortalità in ospedale'],
+      `<form id="f_grace"><div class="form-grid">
+        <div class="field"><label for="gr_age">Età (anni)</label>
+          <input id="gr_age" type="number" min="18" max="120" step="1" required /></div>
+        <div class="field"><label for="gr_hr">FC all'ingresso (bpm)</label>
+          <input id="gr_hr" type="number" min="20" max="300" step="1" required /></div>
+        <div class="field"><label for="gr_sbp">PAS all'ingresso (mmHg)</label>
+          <input id="gr_sbp" type="number" min="40" max="300" step="1" required /></div>
+        <div class="field"><label for="gr_cr">Creatinina (mg/dL)</label>
+          <input id="gr_cr" type="number" min="0.1" max="20" step="0.01" required />
+          <small>Se disponibile in µmol/L, dividere per 88,4.</small></div>
+        <div class="field"><label for="gr_killip">Classe Killip</label><select id="gr_killip">
+          <option value="1">I — senza segni di scompenso</option>
+          <option value="2">II — congestione lieve</option>
+          <option value="3">III — edema polmonare</option>
+          <option value="4">IV — shock cardiogeno</option>
+        </select></div>
+        <div class="field"><label for="gr_acs">Tipo di SCA (per categoria di rischio)</label>
+          <select id="gr_acs"><option value="nste">NSTE-ACS</option>
+          <option value="stemi">STEMI</option></select></div>
+        ${cb('gr_arrest','Arresto cardiaco alla presentazione')}
+        ${cb('gr_st','Deviazione del tratto ST')}
+        ${cb('gr_trop','Biomarcatori cardiaci elevati')}
+      </div><div class="actions">
+        <button type="button" class="primary" onclick="calcGraceUpgrade()">Calcola GRACE</button>
+        <button type="button" class="secondary" onclick="resetForm('f_grace')">Reset</button>
+      </div></form>`);
+  }
+
+  // Metodi invocati da onclick inline (devono essere esposti su window).
+  window.calcGraceUpgrade = function () {
+    const age=readRequiredNumber('gr_age',18,120);
+    const hr=readRequiredNumber('gr_hr',20,300);
+    const sbp=readRequiredNumber('gr_sbp',40,300);
+    const cr=readRequiredNumber('gr_cr',0.1,20);
+    if ([age,hr,sbp,cr].some(x => x===null)) {
+      reportProblem('Inserisci età (18–120), FC (20–300), PAS (40–300) e creatinina (0,1–20 mg/dL). Nessun campo obbligatorio può essere vuoto.');
+      return;
+    }
+    const acs=val('gr_acs');
+    const {parts,score} = graceComponents(age,hr,sbp,cr,
+      selNum('gr_killip'),!!checked('gr_arrest'),!!checked('gr_st'),!!checked('gr_trop'));
+    const cls = acs==='stemi' ?
+      (score <= 125 ? 'Basso' : score <= 154 ? 'Intermedio' : 'Alto') :
+      (score <= 108 ? 'Basso' : score <= 140 ? 'Intermedio' : 'Alto');
+    const rows = Object.entries(parts)
+      .map(([k,v])=>`<tr><td>${k}</td><td>+${v}</td></tr>`).join('');
+    setResult(`<h3>Risultato GRACE</h3>
+      <div class="big">${score} punti</div>
+      <div class="interp"><b>Rischio ${cls.toLowerCase()}</b> (${acs==='stemi'?'STEMI':'NSTE-ACS'}).<p>
+      Mortalità intraospedaliera stimata: <b>${graceMortality(score)}</b>.</p></div>
+      <div class="note">Stima da nomogramma del modello GRACE classico; non equivalente a GRACE 2.0.</div>
+      <table class="table"><tr><th>Contributo</th><th>Punti</th></tr>${rows}</table>`);
+  };
+
+  function ropeLookup(score) {
+    if (score<=3) return {range:'0–3', prevalence:23, attributed:0, ci:'0–4'};
+    if (score===4) return {range:'4', prevalence:35, attributed:38, ci:'25–48'};
+    if (score===5) return {range:'5', prevalence:34, attributed:34, ci:'21–45'};
+    if (score===6) return {range:'6', prevalence:47, attributed:62, ci:'54–68'};
+    if (score===7) return {range:'7', prevalence:54, attributed:72, ci:'66–76'};
+    if (score===8) return {range:'8', prevalence:67, attributed:84, ci:'79–87'};
+    return {range:'9–10', prevalence:73, attributed:88, ci:'83–91'};
+  }
+  function roAge(age) {
+    return band(age, [30,40,50,60,70], [5,4,3,2,1,0]);
+  }
+  function selYN(id,label) {
+    return `<div class="field"><label for="${id}">${label}</label><select id="${id}" required>
+      <option value="" selected>Seleziona…</option>
+      <option value="no">No</option><option value="si">Sì</option>
+    </select></div>`;
+  }
+  function ropeTool() {
+    scheduleDetails(`
+      <p>Il <b>RoPE</b> (Risk of Paradoxical Embolism) si applica allo <b>stroke ischemico criptogenetico</b>, non allo screening del PFO nella popolazione generale.</p>
+      <table class="table"><tr><th>Criterio</th><th>Punti</th></tr>
+      <tr><td>Assenza di ipertensione</td><td>1</td></tr>
+      <tr><td>Assenza di diabete</td><td>1</td></tr>
+      <tr><td>Assenza di precedente ictus/TIA</td><td>1</td></tr>
+      <tr><td>Non fumatore</td><td>1</td></tr>
+      <tr><td>Infarto corticale all'imaging</td><td>1</td></tr>
+      <tr><td>Età 18–29 / 30–39 / 40–49 / 50–59 / 60–69 / ≥70 anni</td><td>5 / 4 / 3 / 2 / 1 / 0</td></tr></table>
+      <p><b>Coorti originali:</b> prevalenza del PFO per punteggio RoPE e frazione di stroke attribuibile al PFO (quando è presente) sono grandezze differenti.</p>
+      <p><b>PASCAL:</b> RoPE ≥7 + shunt ampio e/o aneurisma del setto atriale (ASA) → <b>probabile</b> relazione causale. Se una sola condizione è presente → possibile; se nessuna → improbabile.</p>
+      <div class="warn">RoPE e PASCAL non dimostrano causalità nel singolo caso e non sono indicazioni autonome alla chiusura percutanea. Necessaria esclusione delle altre cause di ictus.</div>
+      <p><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11569559/" target="_blank" rel="noopener" style="color:#a5c7ff">Linee guida ESO</a></p>
+    `,'rope');
+    return shell('RoPE + PASCAL — PFO',
+      'Probabilità di riscontro di PFO e plausibilità della sua responsabilità in un ictus ischemico criptogenetico.',
+      ['RoPE 0–10', 'PFO', 'Stroke criptogenetico', 'PASCAL'],
+      `<form id="f_rope"><div class="form-grid">
+        <div class="field"><label for="ro_age">Età (anni)</label>
+          <input id="ro_age" type="number" min="18" max="120" step="1" required /></div>
+        ${selYN('ro_htn','Ipertensione arteriosa')}
+        ${selYN('ro_dm','Diabete mellito')}
+        ${selYN('ro_stroke','Pregresso stroke o TIA (prima dell’evento indice)')}
+        ${selYN('ro_smoke','Fumatore attivo')}
+        ${selYN('ro_cortical','Infarto corticale all’imaging')}
+        <div class="field"><label for="ro_pfo">Stato del PFO</label>
+          <select id="ro_pfo"><option value="ignoto">Non noto / non ancora documentato</option>
+            <option value="si">PFO documentato</option>
+            <option value="no">PFO escluso</option></select></div>
+        <div class="field"><label for="ro_morph">PFO con caratteristiche ad alto rischio</label>
+          <select id="ro_morph"><option value="ignoto">Non valutate</option>
+            <option value="no">Assenti</option>
+            <option value="si">Shunt ampio e/o ASA</option></select>
+          <small>Per PASCAL; considerato solo se il PFO è documentato.</small></div>
+      </div><div class="actions">
+        <button type="button" class="primary" onclick="calcRopeUpgrade()">Calcola RoPE / PASCAL</button>
+        <button type="button" class="secondary" onclick="resetForm('f_rope')">Reset</button>
+      </div><div class="warn">Destinato a pazienti adulti con ictus ischemico criptogenetico dopo appropriato iter eziologico.</div></form>`);
+  }
+
+  window.calcRopeUpgrade = function () {
+    const age=readRequiredNumber('ro_age',18,120);
+    const ids=['ro_htn','ro_dm','ro_stroke','ro_smoke','ro_cortical'];
+    if (age===null || ids.some(id => !['si','no'].includes(val(id)))) {
+      reportProblem('Inserisci un’età valida (18–120 anni) e scegli Sì/No per tutte le cinque caratteristiche cliniche.');
+      return;
+    }
+    const positive = ids.map(id=>val(id)==='si');
+    const parts={
+      'Età': roAge(age),
+      'Assenza di ipertensione': positive[0]?0:1,
+      'Assenza di diabete': positive[1]?0:1,
+      'Nessuno stroke/TIA pregresso': positive[2]?0:1,
+      'Non fumatore': positive[3]?0:1,
+      'Infarto corticale': positive[4]?1:0
+    };
+    const score = Object.values(parts).reduce((a,b)=>a+b,0);
+    const stat = ropeLookup(score);
+    const hasPFO=val('ro_pfo');
+    const anatomy=val('ro_morph');
+    let pascal='Non calcolabile';
+    if (hasPFO==='si' && anatomy!=='ignoto') {
+      const high=score>=7;
+      pascal = high && anatomy==='si' ? 'Probabile' :
+        (high || anatomy==='si' ? 'Possibile' : 'Improbabile');
+    } else if (hasPFO==='no') {
+      pascal='Non applicabile (PFO escluso)';
+    } else if (hasPFO!=='si') {
+      pascal='Non applicabile (PFO non documentato)';
+    }
+    const rows = Object.entries(parts)
+      .map(([k,v])=>`<tr><td>${k}</td><td>+${v}</td></tr>`).join('');
+    const fraction = hasPFO==='si' ?
+      `<p>Frazione attribuibile stimata al PFO nello strato RoPE: <b>${stat.attributed}%</b> (IC 95% ${stat.ci}%).</p>` :
+      '<p>Frazione attribuibile allo stroke: utilizzabile soltanto nel contesto di PFO effettivamente riscontrato.</p>';
+    setResult(`<h3>Risultato RoPE</h3><div class="big">${score}/10</div>
+      <div class="interp">Nelle coorti con stroke criptogenetico, la prevalenza di PFO per il gruppo RoPE ${stat.range} è <b>${stat.prevalence}%</b>.
+      ${fraction}<p>Classificazione <b>PASCAL: ${pascal}</b>.</p></div>
+      <div class="note">Valori epidemiologici per gruppi, non probabilità diagnostica individuale. 
+      PASCAL richiede PFO documentato e valutazione delle caratteristiche anatomiche ad alto rischio.</div>
+      <table class="table"><tr><th>Contributo</th><th>Punti</th></tr>${rows}</table>`);
+  };
+
+  // Espone soltanto le funzioni pure ai test, senza interferire con l'app.
+  window.CardioUpgrade = {graceComponents, graceMortality, ropeLookup, roAge};
+  if (typeof renderMenu === 'function') renderMenu();
+  if (typeof openTool === 'function') openTool('grace');
+})();
+
 </script>
 </body></html>
